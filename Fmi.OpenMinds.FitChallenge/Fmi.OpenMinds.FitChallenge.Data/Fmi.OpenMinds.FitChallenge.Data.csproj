@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FitChallengeDbContext.cs" />
+    <Compile Include="IFitChallengeDbContext.cs" />
     <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.cs" />
     <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.Designer.cs">
       <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>

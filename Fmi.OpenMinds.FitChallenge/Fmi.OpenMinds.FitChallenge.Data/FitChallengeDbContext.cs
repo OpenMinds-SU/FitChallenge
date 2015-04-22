@@ -4,7 +4,7 @@
     using Fmi.OpenMinds.FitChallenge.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class FitChallengeDbContext : IdentityDbContext<User>
+    public class FitChallengeDbContext : IdentityDbContext<User>, IFitChallengeDbContext
     {
         public FitChallengeDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

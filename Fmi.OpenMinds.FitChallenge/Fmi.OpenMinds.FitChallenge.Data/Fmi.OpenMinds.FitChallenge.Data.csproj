@@ -53,6 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FitChallengeDbContext.cs" />
+    <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.cs" />
+    <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.Designer.cs">
+      <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +69,11 @@
       <Project>{c3a04280-8c60-4038-ab33-09a1a335e172}</Project>
       <Name>Fmi.OpenMinds.FitChallenge.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504222054499_AddMuscleGroupModelMigration.resx">
+      <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

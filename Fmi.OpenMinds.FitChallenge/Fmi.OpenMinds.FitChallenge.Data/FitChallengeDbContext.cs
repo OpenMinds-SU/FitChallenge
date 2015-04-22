@@ -1,5 +1,6 @@
 ﻿namespace Fmi.OpenMinds.FitChallenge.Data
 {
+    using System.Data.Entity;
     using Fmi.OpenMinds.FitChallenge.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -14,6 +15,9 @@
         {
             return new FitChallengeDbContext();
         }
+
+        public IDbSet<MuscleGroup> MuscleGroups { get; set; }
+
     }
 
 }

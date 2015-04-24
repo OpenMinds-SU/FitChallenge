@@ -248,6 +248,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\MuscleGroup\Index.cshtml" />
+    <Content Include="Views\MuscleGroup\Create.cshtml" />
+    <Content Include="Views\MuscleGroup\Edit.cshtml" />
+    <Content Include="Views\MuscleGroup\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

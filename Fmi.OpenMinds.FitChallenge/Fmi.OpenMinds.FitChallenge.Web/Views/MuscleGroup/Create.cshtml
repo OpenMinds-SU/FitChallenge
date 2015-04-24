@@ -1,0 +1,12 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Models.MuscleGroup
+
+<h2>Create</h2>
+Enter the name of the muscle group you want to create?<br />
+
+@using(Html.BeginForm())
+{
+    <div>
+        Date: @Html.TextBoxFor(m => m.Name)
+    </div>
+    <input type="submit" value="Save" />
+}

@@ -58,6 +58,14 @@
     <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.Designer.cs">
       <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504251744029_MuscleGroupNameNotNull.cs" />
+    <Compile Include="Migrations\201504251744029_MuscleGroupNameNotNull.Designer.cs">
+      <DependentUpon>201504251744029_MuscleGroupNameNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504251834589_LengthValidationMuscleGroup.cs" />
+    <Compile Include="Migrations\201504251834589_LengthValidationMuscleGroup.Designer.cs">
+      <DependentUpon>201504251834589_LengthValidationMuscleGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +82,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504222054499_AddMuscleGroupModelMigration.resx">
       <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504251744029_MuscleGroupNameNotNull.resx">
+      <DependentUpon>201504251744029_MuscleGroupNameNotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504251834589_LengthValidationMuscleGroup.resx">
+      <DependentUpon>201504251834589_LengthValidationMuscleGroup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201504251834589_LengthValidationMuscleGroup.Designer.cs">
       <DependentUpon>201504251834589_LengthValidationMuscleGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504282016268_AddExerciseModelMigration.cs" />
+    <Compile Include="Migrations\201504282016268_AddExerciseModelMigration.Designer.cs">
+      <DependentUpon>201504282016268_AddExerciseModelMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504251834589_LengthValidationMuscleGroup.resx">
       <DependentUpon>201504251834589_LengthValidationMuscleGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504282016268_AddExerciseModelMigration.resx">
+      <DependentUpon>201504282016268_AddExerciseModelMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

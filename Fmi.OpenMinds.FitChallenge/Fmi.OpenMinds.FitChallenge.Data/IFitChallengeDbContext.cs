@@ -7,6 +7,8 @@ namespace Fmi.OpenMinds.FitChallenge.Data
     {
         IDbSet<MuscleGroup> MuscleGroups { get; set; }
 
+        IDbSet<Exercise> Exercises { get; set; }
+
         int SaveChanges();
     }
 }

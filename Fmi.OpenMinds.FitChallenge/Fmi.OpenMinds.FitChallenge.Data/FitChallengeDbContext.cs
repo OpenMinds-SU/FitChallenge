@@ -18,6 +18,8 @@
 
         public IDbSet<MuscleGroup> MuscleGroups { get; set; }
 
+        public IDbSet<Exercise> Exercises { get; set; } 
+
     }
 
 }

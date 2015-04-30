@@ -255,6 +255,7 @@
     <Content Include="Views\MuscleGroup\Delete.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
     <Content Include="Views\Workout\Index.cshtml" />
+    <Content Include="Views\Workout\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

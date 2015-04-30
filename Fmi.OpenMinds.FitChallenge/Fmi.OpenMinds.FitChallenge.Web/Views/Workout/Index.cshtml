@@ -1,0 +1,52 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Data.IFitChallengeDbContext
+@{    
+    ViewBag.Title = "Index";
+}
+
+<h2>Workouts</h2>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>UserId</th>
+            <th>MuscleGroups</th>
+            <th width="200">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workout in Model.Workouts)
+        {
+            var searched_workout = @Model.WorkoutsMuscleGroups.Find(@workout.Id);
+            <tr>
+                <td>@workout.Id</td>
+                <td>@workout.Name</td>
+                <td>@workout.UserId</td>
+                <td>
+                    @foreach (var workoutMuscleGroup in Model.WorkoutsMuscleGroups)
+                    {
+                        if (@workout.Id == workoutMuscleGroup.WorkoutId)
+                        {
+                            foreach (var muscleGroup in Model.MuscleGroups)
+                            {
+                                if (@workoutMuscleGroup.MuscleGroupId == muscleGroup.Id)
+                                {
+                                    <div>@muscleGroup.Name</div>
+                                }
+                            }
+                        }
+                    }
+                </td>
+                                
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <button type="button" class="btn btn-default" name="Back" onclick="location.href='@Url.Action("Index", "Home")'">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Back
+    </button>
+</div>

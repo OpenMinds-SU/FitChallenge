@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MuscleGroupController.cs" />
+    <Compile Include="Controllers\WorkoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,6 +254,7 @@
     <Content Include="Views\MuscleGroup\Edit.cshtml" />
     <Content Include="Views\MuscleGroup\Delete.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
+    <Content Include="Views\Workout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

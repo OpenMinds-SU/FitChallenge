@@ -180,6 +180,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MuscleGroupController.cs" />
@@ -251,6 +252,7 @@
     <Content Include="Views\MuscleGroup\Create.cshtml" />
     <Content Include="Views\MuscleGroup\Edit.cshtml" />
     <Content Include="Views\MuscleGroup\Delete.cshtml" />
+    <Content Include="Views\Exercise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

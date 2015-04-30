@@ -18,7 +18,11 @@
 
         public IDbSet<MuscleGroup> MuscleGroups { get; set; }
 
-        public IDbSet<Exercise> Exercises { get; set; } 
+        public IDbSet<Exercise> Exercises { get; set; }
+
+        public IDbSet<Workout> Workouts { get; set; }
+
+        public IDbSet<WorkoutMuscleGroup> WorkoutsMuscleGroups { get; set; }
 
     }
 

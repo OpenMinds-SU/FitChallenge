@@ -12,8 +12,7 @@
     </div>
     <div class="form-group">
         @Html.Label("Muscle Groups")
-        @*@Html.DropDownList("MuscleGroups", new SelectList(Mu, "Id", "Name")) *@
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter name" })
+        @*@Html.DropDownList("MuscleGroups", new SelectList(Mu, "Id", "Name")) *@ @*TODO: FIX The data which is gathered from the model.musclegroups*@
     </div>
     <input type="submit" value="Save" class="btn btn-default" />
     @Html.ActionLink("Cancel", "Index", "Workout", new { }, new { @class = "btn btn-default" })

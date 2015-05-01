@@ -24,6 +24,8 @@
 
         public IDbSet<WorkoutMuscleGroup> WorkoutsMuscleGroups { get; set; }
 
+        public IDbSet<WorkoutExercise> WorkoutsExercises { get; set; }
+
     }
 
 }

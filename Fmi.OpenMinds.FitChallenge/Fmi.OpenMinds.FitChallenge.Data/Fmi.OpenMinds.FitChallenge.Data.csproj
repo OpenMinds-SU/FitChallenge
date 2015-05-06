@@ -82,6 +82,14 @@
     <Compile Include="Migrations\201505011722418_AddWorkoutExercise.Designer.cs">
       <DependentUpon>201505011722418_AddWorkoutExercise.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505061552326_TestingProblemWithTheDB.cs" />
+    <Compile Include="Migrations\201505061552326_TestingProblemWithTheDB.Designer.cs">
+      <DependentUpon>201505061552326_TestingProblemWithTheDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505061616539_AddListsInModels.cs" />
+    <Compile Include="Migrations\201505061616539_AddListsInModels.Designer.cs">
+      <DependentUpon>201505061616539_AddListsInModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505011722418_AddWorkoutExercise.resx">
       <DependentUpon>201505011722418_AddWorkoutExercise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505061552326_TestingProblemWithTheDB.resx">
+      <DependentUpon>201505061552326_TestingProblemWithTheDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505061616539_AddListsInModels.resx">
+      <DependentUpon>201505061616539_AddListsInModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

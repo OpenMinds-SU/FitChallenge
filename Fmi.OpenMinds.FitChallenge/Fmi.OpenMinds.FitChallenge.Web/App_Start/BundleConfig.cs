@@ -6,6 +6,14 @@
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/jqueryCalendar").Include(
+                        "~/Scripts/moment.min.js",
+                        "~/Scripts/fullcalendar.min.js",
+                        "~/Scripts/lang-all.js"));
+
+            bundles.Add(new StyleBundle("~/Content/jqueryCalendarStyle").Include(
+                      "~/Content/fullcalendar.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 

@@ -12,7 +12,16 @@
     </div>
     <div class="form-group">
         @Html.Label("Muscle Groups")
-        @*@Html.DropDownList("MuscleGroups", new SelectList(Mu, "Id", "Name")) *@ @*TODO: FIX The data which is gathered from the model.musclegroups*@
+        @Html.DropDownList("MuscleGroupsAll")
+        
+        @*@Html.ListBox("MuscleGroupsSelected", ViewBag.MuscleGroupsAll as MultiSelectList) //TODO: Fix the multiselect*@
+        
+    </div>
+    <div class="form-group">
+        @Html.Label("Exercise")
+        @Html.DropDownList("ExercisesAll")
+        @Html.Label("Sets: ")
+        @Html.Label("Repeats: ")
     </div>
     <input type="submit" value="Save" class="btn btn-default" />
     @Html.ActionLink("Cancel", "Index", "Workout", new { }, new { @class = "btn btn-default" })

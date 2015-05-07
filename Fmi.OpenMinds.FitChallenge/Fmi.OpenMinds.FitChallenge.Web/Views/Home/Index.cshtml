@@ -1,19 +1,26 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Wellcome";
 }
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>@Html.ActionLink("Calendar", "Index", "Calendar")</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Calendar helps you to organize and view statistics about your trainings. 
+            You plan trainings, suplements and other comments for each day and mark
+            whether you have completed the plan.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Workout", "Index", "Workout")</h2>
+        <p>
+            You can add different workouts for different muscure groups. Then you can 
+            mark this workout as planned for selected day in calendar.
+        </p>
     </div>
 </div>
 
-<div>@Html.ActionLink("MuscleGroup", "Index", "MuscleGroup")</div>
-<div>@Html.ActionLink("Workout", "Index", "Workout")</div>
-<div>@Html.ActionLink("Exercise", "Index", "Exercise")</div>
-<div>@Html.ActionLink("Events", "Index", "Event")</div>
+<div class="row">
+    <div>@Html.ActionLink("Muscle group", "Index", "MuscleGroup")</div>
+    <div>@Html.ActionLink("Exercise", "Index", "Exercise")</div>
+</div>
+

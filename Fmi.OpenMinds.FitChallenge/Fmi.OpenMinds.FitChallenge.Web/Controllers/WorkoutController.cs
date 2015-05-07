@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
+    [Authorize]
     public class WorkoutController : Controller
     {
         private IFitChallengeDbContext context;

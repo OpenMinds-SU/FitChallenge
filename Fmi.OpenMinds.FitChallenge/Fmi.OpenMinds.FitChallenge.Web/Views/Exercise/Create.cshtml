@@ -1,0 +1,19 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Models.Exercise
+<h2>Create exercise</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+
+    <p>Enter the name of the exercise you want to create?</p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter name" })
+    </div>
+    <p>Enter the URL of the video for the Exercise?</p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Url)
+        @Html.TextBoxFor(m => m.Url, new { @class = "form-control", placeholder = "Enter URL" })
+    </div>
+    <input type="submit" value="Save" class="btn btn-default" />
+    @Html.ActionLink("Cancel", "Index", "Exercise", new { }, new { @class = "btn btn-default" })
+}

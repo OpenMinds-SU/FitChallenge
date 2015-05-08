@@ -285,6 +285,9 @@
     <Content Include="Views\Workout\Index.cshtml" />
     <Content Include="Views\Workout\Create.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Exercise\Delete.cshtml" />
+    <Content Include="Views\Exercise\Edit.cshtml" />
+    <Content Include="Views\Exercise\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

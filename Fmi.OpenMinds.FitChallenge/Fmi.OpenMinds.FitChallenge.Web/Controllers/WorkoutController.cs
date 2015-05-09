@@ -18,7 +18,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         public ActionResult Index()
         {
             
-            return View(context);
+            return View(context.Workouts);
         }
 
 
@@ -84,10 +84,6 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Workout workout)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(workout);
-            }
             var workoutToDelete = context.Workouts.Find(workout.Id);
             context.Workouts.Remove(workoutToDelete);
             context.SaveChanges();

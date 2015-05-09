@@ -60,7 +60,7 @@
         {
             if (ModelState.IsValid)
             {
- 
+                
             }
 
 
@@ -73,7 +73,7 @@
         }
 
         [HttpPost]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(EventViewModel id)
         {
             return this.View();
         }

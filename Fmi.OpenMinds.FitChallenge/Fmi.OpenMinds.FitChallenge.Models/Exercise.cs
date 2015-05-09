@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fmi.OpenMinds.FitChallenge.Models
 {
@@ -13,5 +14,7 @@ namespace Fmi.OpenMinds.FitChallenge.Models
         public string Url { get; set; }
 
         public int MainMuscleGroupId { get; set; }
+
+        public List<Workout> Workout { get; set; }
     }
 }

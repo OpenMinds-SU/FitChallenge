@@ -4,6 +4,7 @@ using Fmi.OpenMinds.FitChallenge.Models;
 
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
+    [Authorize]
     public class MuscleGroupController : Controller
     {
         private IFitChallengeDbContext context;

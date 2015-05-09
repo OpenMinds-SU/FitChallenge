@@ -8,6 +8,8 @@
         public Workout()
         {
             this.Events = new HashSet<Event>();
+            this.Exercises = new HashSet<Exercise>();
+            this.MuscleGroups = new HashSet<MuscleGroup>();
         }
 
         public int Id { get; set; }
@@ -18,9 +20,9 @@
 
         public int UserId { get; set; }
 
-        public List<Exercise> Exercises { get; set; }
+        public ICollection<Exercise> Exercises { get; set; }
 
-        public List<MuscleGroup> MuscleGroups { get; set; }
+        public ICollection<MuscleGroup> MuscleGroups { get; set; }
 
         public ICollection<Event> Events { get; set; }
     }

@@ -58,8 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Workout.cs" />
-    <Compile Include="WorkoutExercise.cs" />
-    <Compile Include="WorkoutMuscleGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

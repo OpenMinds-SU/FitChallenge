@@ -21,6 +21,8 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             return View(context);
         }
 
+
+        // GET : Workout/Create
         public ActionResult Create()
         {
             var workout = new Workout();
@@ -30,22 +32,66 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             return View(workout);
         }
 
+        // POST : Workout/Create
         [HttpPost]
-        public ContentResult Create(Workout workout, string MuscleGroupsAll, string ExercisesAll)
+        public ActionResult Create(Workout workout, string MuscleGroupsAll, string ExercisesAll)
         {
             if (!ModelState.IsValid)
             {
-                //return View(workout);
+                return View(workout);
             }
 
-            MuscleGroup muscleGroup = context.MuscleGroups.Find(Int32.Parse(MuscleGroupsAll));
-            Exercise exercise = context.Exercises.Find(Int32.Parse(ExercisesAll));
-            //workout.MuscleGroups.Add(muscleGroup);
-            //workout.Exercises.Add(exercise);
-            //context.Workouts.Add(workout);
-            //context.SaveChanges();
-            return Content(workout.Name + " " + workout.MuscleGroups + muscleGroup + "  " + workout.Exercises + exercise + "  " + MuscleGroupsAll + "  " + ExercisesAll);
-            //return RedirectToAction("Index");
+            var findMuscleGroup = context.MuscleGroups.Find(Int32.Parse(MuscleGroupsAll));
+            var findExercise = context.Exercises.Find(Int32.Parse(ExercisesAll));
+
+            workout.MuscleGroups.Add(findMuscleGroup);
+            workout.Exercises.Add(findExercise);
+            context.Workouts.Add(workout);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET : Workout/Edit
+        public ActionResult Edit(int id)
+        {
+            var workoutEdit = context.Workouts.Find(id);
+            return View(workoutEdit);
+        }
+
+        // POST : Workout/Edit
+        [HttpPost]
+        public ActionResult Edit(Workout workout)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(workout);
+            }
+
+            var workoutOld = context.Workouts.Find(workout.Id);
+            workoutOld.Name = workout.Name;
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        // GET : Workout/Delete
+        public ActionResult Delete(int id)
+        {
+            return View(id);
+        }
+
+        // POST : Workout/Delete
+        [HttpPost]
+        public ActionResult Delete(Workout workout)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(workout);
+            }
+            var workoutToDelete = context.Workouts.Find(workout.Id);
+            context.Workouts.Remove(workoutToDelete);
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
     }

@@ -58,6 +58,14 @@
     <Compile Include="Migrations\201505090921035_Init.Designer.cs">
       <DependentUpon>201505090921035_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505092036333_ConstructorsEditted.cs" />
+    <Compile Include="Migrations\201505092036333_ConstructorsEditted.Designer.cs">
+      <DependentUpon>201505092036333_ConstructorsEditted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505092057528_Deleted2Models.cs" />
+    <Compile Include="Migrations\201505092057528_Deleted2Models.Designer.cs">
+      <DependentUpon>201505092057528_Deleted2Models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +82,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505090921035_Init.resx">
       <DependentUpon>201505090921035_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505092036333_ConstructorsEditted.resx">
+      <DependentUpon>201505092036333_ConstructorsEditted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505092057528_Deleted2Models.resx">
+      <DependentUpon>201505092057528_Deleted2Models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

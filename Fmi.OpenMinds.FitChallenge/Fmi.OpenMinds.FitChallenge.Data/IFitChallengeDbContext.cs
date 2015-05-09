@@ -11,10 +11,6 @@ namespace Fmi.OpenMinds.FitChallenge.Data
 
         IDbSet<Workout> Workouts { get; set; }
 
-        IDbSet<WorkoutMuscleGroup> WorkoutsMuscleGroups { get; set; }
-
-        IDbSet<WorkoutExercise> WorkoutsExercises { get; set; }
-
         IDbSet<Event> Events { get; set; }
 
         int SaveChanges();

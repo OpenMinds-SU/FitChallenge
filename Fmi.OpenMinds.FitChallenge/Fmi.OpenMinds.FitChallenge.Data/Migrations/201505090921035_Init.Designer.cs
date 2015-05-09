@@ -7,13 +7,13 @@ namespace Fmi.OpenMinds.FitChallenge.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class LengthValidationMuscleGroup : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(LengthValidationMuscleGroup));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504251834589_LengthValidationMuscleGroup"; }
+            get { return "201505090921035_Init"; }
         }
         
         string IMigrationMetadata.Source

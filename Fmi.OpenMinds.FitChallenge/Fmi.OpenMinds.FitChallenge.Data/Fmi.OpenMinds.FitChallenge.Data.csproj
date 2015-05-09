@@ -54,41 +54,9 @@
   <ItemGroup>
     <Compile Include="FitChallengeDbContext.cs" />
     <Compile Include="IFitChallengeDbContext.cs" />
-    <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.cs" />
-    <Compile Include="Migrations\201504222054499_AddMuscleGroupModelMigration.Designer.cs">
-      <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504251744029_MuscleGroupNameNotNull.cs" />
-    <Compile Include="Migrations\201504251744029_MuscleGroupNameNotNull.Designer.cs">
-      <DependentUpon>201504251744029_MuscleGroupNameNotNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504251834589_LengthValidationMuscleGroup.cs" />
-    <Compile Include="Migrations\201504251834589_LengthValidationMuscleGroup.Designer.cs">
-      <DependentUpon>201504251834589_LengthValidationMuscleGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504282016268_AddExerciseModelMigration.cs" />
-    <Compile Include="Migrations\201504282016268_AddExerciseModelMigration.Designer.cs">
-      <DependentUpon>201504282016268_AddExerciseModelMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504301620295_AddedMuscleGroupIdInExercise.cs" />
-    <Compile Include="Migrations\201504301620295_AddedMuscleGroupIdInExercise.Designer.cs">
-      <DependentUpon>201504301620295_AddedMuscleGroupIdInExercise.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504301721580_AddWorkouts.cs" />
-    <Compile Include="Migrations\201504301721580_AddWorkouts.Designer.cs">
-      <DependentUpon>201504301721580_AddWorkouts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505011722418_AddWorkoutExercise.cs" />
-    <Compile Include="Migrations\201505011722418_AddWorkoutExercise.Designer.cs">
-      <DependentUpon>201505011722418_AddWorkoutExercise.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505061552326_TestingProblemWithTheDB.cs" />
-    <Compile Include="Migrations\201505061552326_TestingProblemWithTheDB.Designer.cs">
-      <DependentUpon>201505061552326_TestingProblemWithTheDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505061616539_AddListsInModels.cs" />
-    <Compile Include="Migrations\201505061616539_AddListsInModels.Designer.cs">
-      <DependentUpon>201505061616539_AddListsInModels.cs</DependentUpon>
+    <Compile Include="Migrations\201505090921035_Init.cs" />
+    <Compile Include="Migrations\201505090921035_Init.Designer.cs">
+      <DependentUpon>201505090921035_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,32 +72,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504222054499_AddMuscleGroupModelMigration.resx">
-      <DependentUpon>201504222054499_AddMuscleGroupModelMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504251744029_MuscleGroupNameNotNull.resx">
-      <DependentUpon>201504251744029_MuscleGroupNameNotNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504251834589_LengthValidationMuscleGroup.resx">
-      <DependentUpon>201504251834589_LengthValidationMuscleGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504282016268_AddExerciseModelMigration.resx">
-      <DependentUpon>201504282016268_AddExerciseModelMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504301620295_AddedMuscleGroupIdInExercise.resx">
-      <DependentUpon>201504301620295_AddedMuscleGroupIdInExercise.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504301721580_AddWorkouts.resx">
-      <DependentUpon>201504301721580_AddWorkouts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505011722418_AddWorkoutExercise.resx">
-      <DependentUpon>201505011722418_AddWorkoutExercise.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505061552326_TestingProblemWithTheDB.resx">
-      <DependentUpon>201505061552326_TestingProblemWithTheDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505061616539_AddListsInModels.resx">
-      <DependentUpon>201505061616539_AddListsInModels.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505090921035_Init.resx">
+      <DependentUpon>201505090921035_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace Fmi.OpenMinds.FitChallenge.Models
+﻿namespace Fmi.OpenMinds.FitChallenge.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class Workout
     {
+        public Workout()
+        {
+            this.Events = new HashSet<Event>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -16,5 +21,7 @@ namespace Fmi.OpenMinds.FitChallenge.Models
         public List<Exercise> Exercises { get; set; }
 
         public List<MuscleGroup> MuscleGroups { get; set; }
+
+        public ICollection<Event> Events { get; set; }
     }
 }

@@ -26,6 +26,7 @@
 
         public IDbSet<WorkoutExercise> WorkoutsExercises { get; set; }
 
+        public IDbSet<Event> Events { get; set; }
     }
 
 }

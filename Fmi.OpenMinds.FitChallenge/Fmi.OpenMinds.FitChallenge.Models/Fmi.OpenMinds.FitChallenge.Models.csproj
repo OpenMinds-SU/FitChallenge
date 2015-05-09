@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Event.cs" />
     <Compile Include="Exercise.cs" />
     <Compile Include="MuscleGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

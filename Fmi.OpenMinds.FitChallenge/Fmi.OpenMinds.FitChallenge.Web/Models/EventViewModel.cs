@@ -23,8 +23,10 @@
         [StringLength(200)]
         public string Food { get; set; }
 
+        [Required]
         public int WorkoutId { get; set; }
 
+        [Required]
         public string UserId { get; set; }
     }
 }

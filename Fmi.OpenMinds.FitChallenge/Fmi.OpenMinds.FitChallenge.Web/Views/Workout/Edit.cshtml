@@ -1,0 +1,14 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Models.Workout
+
+<h2>Workout Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <p>Edit the name of the selected workout?</p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+    <input type="submit" value="Save" class="btn btn-default" />
+    @Html.ActionLink("Cancel", "Index", "Workout", new { }, new { @class = "btn btn-default" })
+}

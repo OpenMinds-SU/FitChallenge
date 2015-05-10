@@ -293,6 +293,8 @@
     <Content Include="Views\Exercise\Edit.cshtml" />
     <Content Include="Views\Exercise\Create.cshtml" />
     <Content Include="Views\Calendar\Edit.cshtml" />
+    <Content Include="Views\Workout\Edit.cshtml" />
+    <Content Include="Views\Workout\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

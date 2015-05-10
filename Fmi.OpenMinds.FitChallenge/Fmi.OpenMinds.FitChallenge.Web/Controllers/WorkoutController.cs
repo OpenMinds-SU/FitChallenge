@@ -18,6 +18,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             this.context = context;        
         }
 
+        // Filtering The Workouts only for the Current User
         public ICollection<Workout> GetCurrentUserWorkouts()
         {
             var currentUser = User.Identity.GetUserId();
@@ -30,6 +31,20 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
                 }
             }
             return userWorkouts;
+        }
+
+        public ICollection<Exercise> GetCurrentUserExercises()
+        {
+            var currentUser = User.Identity.GetUserId();
+            ICollection<Exercise> userExercises = new HashSet<Exercise>();
+            foreach (var exercise in context.Exercises)
+            {
+                if (exercise.UserId == currentUser || exercise.UserId == "NULL")
+                {
+                    userExercises.Add(exercise);
+                }
+            }
+            return userExercises;
         }
 
         // GET: Workout
@@ -45,7 +60,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             var workout = new Workout();
             
             ViewBag.MuscleGroupsAll = new SelectList(context.MuscleGroups, "Id", "Name");
-            ViewBag.ExercisesAll = new SelectList(context.Exercises, "Id", "Name");
+            ViewBag.ExercisesAll = new SelectList(GetCurrentUserExercises(), "Id", "Name");
             return View(workout);
         }
 

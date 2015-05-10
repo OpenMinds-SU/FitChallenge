@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201505100822333_WorkoutUserIdTypeChanged.Designer.cs">
       <DependentUpon>201505100822333_WorkoutUserIdTypeChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505100950123_ExerciseUserIdAdded.cs" />
+    <Compile Include="Migrations\201505100950123_ExerciseUserIdAdded.Designer.cs">
+      <DependentUpon>201505100950123_ExerciseUserIdAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505100822333_WorkoutUserIdTypeChanged.resx">
       <DependentUpon>201505100822333_WorkoutUserIdTypeChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100950123_ExerciseUserIdAdded.resx">
+      <DependentUpon>201505100950123_ExerciseUserIdAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

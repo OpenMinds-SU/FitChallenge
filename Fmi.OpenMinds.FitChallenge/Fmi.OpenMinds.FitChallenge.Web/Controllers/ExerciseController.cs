@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using Fmi.OpenMinds.FitChallenge.Data;
 using Fmi.OpenMinds.FitChallenge.Models;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
@@ -13,10 +15,25 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         {
             this.context = context;        
         }
+
+        // Filtering The Exercises for The Current User
+        public ICollection<Exercise> GetCurrentUserExercises()
+        {
+            var currentUser = User.Identity.GetUserId();
+            ICollection<Exercise> userExercises = new HashSet<Exercise>();
+            foreach (var exercise in context.Exercises)
+            {
+                if (exercise.UserId == currentUser && exercise.UserId == string.Empty)
+                {
+                    userExercises.Add(exercise);
+                }
+            }
+            return userExercises;
+        }
         
         public ActionResult Index()
         {
-            return View(context.Exercises);
+            return View(GetCurrentUserExercises());
         }
 
         // GET : Exercise/Create
@@ -34,7 +51,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             {
                 return View(exercise);
             }
-
+            exercise.UserId = User.Identity.GetUserId();
             context.Exercises.Add(exercise);
             context.SaveChanges();
             return RedirectToAction("Index");

@@ -20,7 +20,7 @@ namespace Fmi.OpenMinds.FitChallenge.Models
 
         public int MainMuscleGroupId { get; set; }
 
-        //public string UserId { get; set; }
+        public string UserId { get; set; }
 
         public ICollection<Workout> Workout { get; set; }
     }

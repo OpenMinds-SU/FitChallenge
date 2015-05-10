@@ -1,10 +1,7 @@
 ﻿namespace Fmi.OpenMinds.FitChallenge.Web.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
 
     public class EventViewModel
     {
@@ -26,7 +23,6 @@
         [Required]
         public int WorkoutId { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
+        public string WorkoutName { get; set; }
     }
 }

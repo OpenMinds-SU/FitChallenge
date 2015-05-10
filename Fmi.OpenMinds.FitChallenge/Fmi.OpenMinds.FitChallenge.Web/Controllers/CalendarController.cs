@@ -11,13 +11,20 @@
     [Authorize]
     public class CalendarController : Controller
     {
-        private IFitChallengeDbContext context;
+        private readonly IFitChallengeDbContext context;
 
         public CalendarController(IFitChallengeDbContext context)
         {
             this.context = context;
         }
 
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
         public ActionResult Index(DateTime? startDate = null, DateTime? endDate = null)
         {
             if (startDate == null)
@@ -33,43 +40,80 @@
 
             try
             {
+                var userId = this.User.Identity.GetUserId();
                 var events = this.context.Events
-                    .Where(ev => ev.UserId == this.User.Identity.GetUserId())
-                    .Where(ev => ev.Date >= startDate && ev.Date <= endDate)
-                    .Select(ev => new EventViewModel
-                    {
-                        Id = ev.Id,
-                        Date = ev.Date,
-                        Food = ev.Food,
-                        Supplements = ev.Supplements,
-                        IsTrainingDone = ev.IsTrainingDone,
-                        SupplementsAreDrunken = ev.SupplementsAreDrunken,
-                        UserId = ev.UserId,
-                        WorkoutId = ev.WorkoutId
-                    })
-                    .ToArray();
+                    .Where(ev => ev.UserId == userId &&
+                        ev.Date >= startDate && ev.Date <= endDate)
+                    .ToArray()
+                    .Select(ev => mapEvent(ev));
 
-                return this.Json(new { status = "success", data = events }, JsonRequestBehavior.AllowGet);
+                return this.Json(new { success = true, data = events }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
-                return this.Json(new { status = "error" });
+                return this.Json(new { success = false });
             }
         }
 
         public ActionResult Create()
         {
-            var model = new EventViewModel();
+            InitWorkoutSelectList();
 
-            return this.View(model);
+            var model = new EventViewModel();
+            return this.PartialView("Edit", model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            InitWorkoutSelectList();
+
+            var currentEvent = this.context.Events.Find(id);
+            var eventViewModel = mapEvent(currentEvent);
+            return this.PartialView(eventViewModel);
+        }
+
+        private void InitWorkoutSelectList()
+        {
+            ViewBag.WorkoutSelectList = this.context.Workouts
+                .Select(w => new SelectListItem() { Value = w.Id.ToString(), Text = w.Name });
         }
 
         [HttpPost]
-        public ActionResult Create(EventViewModel eventModel)
+        public ActionResult Save(EventViewModel eventModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                var allModelStateErrors = ModelState.Values
+                    .Select(values => values.Errors.Select(error => error.ErrorMessage));
+                return Json(new { success = false, errors = allModelStateErrors });
+            }
+
+            try
+            {
+                string message = string.Empty;
+
+                if (eventModel.Id > 0)
+                {
+                    var currentEvent = this.context.Events.Find(eventModel.Id);
+                    if (currentEvent.UserId == User.Identity.GetUserId())
+                    {
+                        currentEvent.Date = eventModel.Date;
+                        currentEvent.Food = eventModel.Food;
+                        currentEvent.Supplements = eventModel.Supplements;
+                        currentEvent.IsTrainingDone = eventModel.IsTrainingDone;
+                        currentEvent.SupplementsAreDrunken = eventModel.SupplementsAreDrunken;
+                        currentEvent.WorkoutId = eventModel.WorkoutId;
+
+                        this.context.SaveChanges();
+                        var eventViewModel = mapEvent(currentEvent);
+                        return Json(new { success = true, message = "Event was successfully updated!", data = eventViewModel });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "The event you are trying to modify is not yours" });
+                    }
+                }
+                else
                 {
                     var eventDataModel = new Event
                     {
@@ -78,109 +122,24 @@
                         Supplements = eventModel.Supplements,
                         IsTrainingDone = eventModel.IsTrainingDone,
                         SupplementsAreDrunken = eventModel.SupplementsAreDrunken,
-                        UserId = eventModel.UserId,
+                        UserId = this.User.Identity.GetUserId(),
                         WorkoutId = eventModel.WorkoutId
                     };
 
                     this.context.Events.Add(eventDataModel);
                     this.context.SaveChanges();
 
-                    return Json(new { status = "success", message = "Event was successfully created!", data = eventDataModel });
+                    eventDataModel = this.context.Events.FirstOrDefault(i => i.Id == eventDataModel.Id);
+
+
+                    var eventViewModel = mapEvent(eventDataModel);
+                    return Json(new { success = true, message = "Event was successfully created!", data = eventViewModel });
                 }
-                catch (Exception)
-                {
-                    return Json(new { status = "error" });
-                }
-            }
-            var allModelStateErrors = ModelState.Values.Select(values => values.Errors.Select(error => error.ErrorMessage));
-
-            return Json(new { status = "error", errors = allModelStateErrors });
-        }
-
-        public ActionResult Edit(int id)
-        {
-            if (id == 0)
-            {
-                return Json(new { status = "error", message = "Id is required!" });
-            }
-
-            try
-            {
-                var currentEvent = this.context.Events.Where(ev => ev.Id == id)
-                    .Select(ev => new EventViewModel
-                    {
-                        Id = ev.Id,
-                        Date = ev.Date,
-                        Food = ev.Food,
-                        Supplements = ev.Supplements,
-                        IsTrainingDone = ev.IsTrainingDone,
-                        SupplementsAreDrunken = ev.SupplementsAreDrunken,
-                        UserId = ev.UserId,
-                        WorkoutId = ev.WorkoutId
-                    })
-                    .FirstOrDefault();
-
-                return this.Json(new { status = "success", data = currentEvent }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
-                return this.Json(new { status = "error" });
+                return Json(new { success = false });
             }
-        }
-
-        [HttpPost]
-        public ActionResult Edit(EventViewModel eventModel)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var eventDataModel = new Event
-                    {
-                        Date = eventModel.Date,
-                        Food = eventModel.Food,
-                        Supplements = eventModel.Supplements,
-                        IsTrainingDone = eventModel.IsTrainingDone,
-                        SupplementsAreDrunken = eventModel.SupplementsAreDrunken,
-                        UserId = eventModel.UserId,
-                        WorkoutId = eventModel.WorkoutId
-                    };
-
-                    var message = string.Empty;
-
-                    if (eventModel.Id != 0)
-                    {
-                        var currentEvent = this.context.Events.Where(ev => ev.Id == eventModel.Id)
-                            .FirstOrDefault();
-
-                        currentEvent.Date = eventModel.Date;
-                        currentEvent.Food = eventModel.Food;
-                        currentEvent.Supplements = eventModel.Supplements;
-                        currentEvent.IsTrainingDone = eventModel.IsTrainingDone;
-                        currentEvent.SupplementsAreDrunken = eventModel.SupplementsAreDrunken;
-                        currentEvent.UserId = eventModel.UserId;
-                        currentEvent.WorkoutId = eventModel.WorkoutId;
-
-                        this.context.SaveChanges();
-                        message = "Event was successfully updated!";
-                    }
-                    else
-                    {
-                        this.context.Events.Add(eventDataModel);
-                        this.context.SaveChanges();
-                        message = "Event was successfully created!";
-                    }
-
-                    return Json(new { status = "success", message = message, data = eventDataModel });
-                }
-                catch (Exception)
-                {
-                    return Json(new { status = "error" });
-                }
-            }
-            var allModelStateErrors = ModelState.Values.Select(values => values.Errors.Select(error => error.ErrorMessage));
-
-            return Json(new { status = "error", errors = allModelStateErrors });
         }
 
         [HttpPost]
@@ -188,22 +147,46 @@
         {
             if (id == 0)
             {
-                return Json(new { status = "error", message = "Id is required!" });
+                return Json(new { success = false, message = "Id is required!" });
             }
 
             try
             {
-                var entityToRemove = this.context.Events.Where(ev => ev.Id == id)
-                            .FirstOrDefault();
+                var entityToRemove = this.context.Events.Find(id);
+                if (entityToRemove == null)
+                {
+                    return Json(new { success = false, message = "Event does not exists." });
+                }
+
+                if (entityToRemove.UserId != User.Identity.GetUserId()) 
+                {
+                    return Json(new { success = false, message = "The event you are trying to delete is not yours." });
+                }
 
                 this.context.Events.Remove(entityToRemove);
+                this.context.SaveChanges();
 
-                return Json(new { status = "success", message = "Event was successfully removed", data = entityToRemove });
+                return Json(new { success = true, message = "Event was successfully removed", data = entityToRemove });
             }
             catch (Exception)
             {
-                return Json(new { status = "error" });
+                return Json(new { success = false });
             }
+        }
+
+        private EventViewModel mapEvent(Event ev)
+        {
+            return new EventViewModel
+            {
+                Id = ev.Id,
+                Date = ev.Date,
+                Food = ev.Food,
+                Supplements = ev.Supplements,
+                IsTrainingDone = ev.IsTrainingDone,
+                SupplementsAreDrunken = ev.SupplementsAreDrunken,
+                WorkoutId = ev.WorkoutId,
+                WorkoutName = ev.Workout.Name
+            };
         }
     }
 }

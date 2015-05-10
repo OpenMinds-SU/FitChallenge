@@ -1,0 +1,34 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Web.Models.EventViewModel
+<form>
+    @if (Model.Id != 0)
+    {
+        @*@Html.HiddenFor(m => m.Id);*@
+    }
+    @Html.HiddenFor(m => m.Date)
+    <div class="form-group">
+        <label>Workout</label>
+        @Html.DropDownListFor(m => m.WorkoutId,
+            (IEnumerable<SelectListItem>)ViewBag.WorkoutSelectList,
+            new { @class = "form-control" })
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.IsTrainingDone)
+            Is training done
+        </label>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Supplements)
+        @Html.TextAreaFor(m => m.Supplements, new { @class = "form-control" })
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.SupplementsAreDrunken)
+            Suplements are drunken
+        </label>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Food)
+        @Html.TextAreaFor(m => m.Food, new { @class = "form-control" })
+    </div>
+</form>

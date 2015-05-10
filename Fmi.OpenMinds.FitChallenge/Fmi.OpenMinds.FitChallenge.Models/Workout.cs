@@ -20,10 +20,10 @@
 
         public int UserId { get; set; }
 
-        public ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
 
-        public ICollection<MuscleGroup> MuscleGroups { get; set; }
+        public virtual ICollection<MuscleGroup> MuscleGroups { get; set; }
 
-        public ICollection<Event> Events { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

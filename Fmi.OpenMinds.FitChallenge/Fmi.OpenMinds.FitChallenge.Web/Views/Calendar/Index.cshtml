@@ -1,16 +1,189 @@
 ﻿<br />
 <div id='calendar'></div>
+
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Event</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Warning</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you realy want to delete this event?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+</div>
+
 <script>
-    $(document).ready(function () {
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            defaultDate: new Date(),
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
+$(function () {
+    var calendar = $('#calendar');
+    var saveModal = $('#saveModal');
+    var confirmModal = $('#confirmModal');
+
+    calendar.fullCalendar({
+        header: {
+            left: 'title',
+            right: 'prev,next today'
+        },
+        firstDay: 1, // Monday
+        height: 600, 
+        dayClick: dayClick,
+        eventRender: eventRender,
+        eventClick: eventClick, 
+        defaultDate: new Date()
+    });
+
+    function eventRender(event, element, jsEvent) {
+        var html = '<img src="./Content/Images/training.png" width="30" />';
+
+        if (event.data.Supplements) {
+            html += '<img src="./Content/Images/food.png" width="30" />';
+        }
+
+        if (event.data.Food) {
+            html += '<img src="./Content/Images/suplements.png" width="30" />';
+        }
+
+        element.find(".fc-title").after('<span class="fc-event-remove" style="float:right;"><a href="javascript:void(0)"><i class="glyphicon glyphicon-remove-sign"></i></a></span>');
+        element.find(".fc-event-remove").after($("<div class=\"fc-event-icons text-center\"></div>").html(html));
+    }
+    // Get init data.
+    $.post('./Calendar/Index', {})
+    .done(initEvents);
+    
+    function initEvents(data) {
+        if (!data.success) {
+            alert('An error has occured.');
+            return;
+        }
+
+        var events = [];
+        for (var i in data.data) {
+            var evt = data.data[i];
+            events.push(mapEvent(evt));
+        }
+
+        calendar.fullCalendar('addEventSource', events);
+    }
+
+    function mapEvent(evt) {
+        var milliseconds = evt.Date.replace(/\/Date\((-?\d+)\)\//, '$1');
+        var date = new Date(parseInt(milliseconds));
+        return {
+            id: evt.Id,
+            allDay: true,
+            start: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+            backgroundColor: '#fff',
+            textColor: '#3a87ad',
+            title: evt.WorkoutName,
+            data: evt
+        }
+    }
+
+    function dayClick(date, jsEvent, view) {
+        var dateText = date.year() + '-' + (date.month() + 1) + '-' + date.date();
+        var eventsForTheDay = calendar.fullCalendar('clientEvents', function(event) {
+            var startDate = event.start.year() + '-' + (event.start.month() + 1) + '-' + event.start.date();
+            return startDate == dateText;
+        });
+
+        if (eventsForTheDay.length > 0) {
+            return;
+        }
+
+        $.get('./Calendar/Create')
+        .done(function (view) {
+            saveModal.find('.modal-body').html(view);
+            saveModal.find('#Date').val(dateText);
+            saveModal.modal('show');
+        });
+    }
+
+    function eventClick(event, jsEvent, view) {
+        if ($(jsEvent.target).hasClass('glyphicon-remove-sign')) {
+            confirmModal.data('id', event.id);
+            confirmModal.modal('show');
+
+            return;
+        }
+        
+        var date = event.start;
+        var dateText = date.year() + '-' + (date.month() + 1) + '-' + date.date();
+
+        $.get('./Calendar/Edit/' + event.id)
+        .done(function (view) {
+            saveModal.find('.modal-body').html(view);
+            saveModal.find('#Date').val(dateText);
+            saveModal.modal('show');
+        });
+    }
+
+    saveModal.find('.btn-primary').on('click', function () {
+        var formData = $("form").serializeObject();
+        $.post('./Calendar/Save', formData).done(function (data) {
+            if (!data.success) {
+                alert(data.message);
+                return;
+            }
+
+            var evt = mapEvent(data.data);
+            calendar.fullCalendar('addEventSource', [ evt ]);
+            saveModal.modal('hide');
         });
     });
+
+    confirmModal.find('.btn-primary').on('click', function () {
+        var id = confirmModal.data('id');
+
+        $.post('./Calendar/Delete', { id: id }).done(function (data) {
+            if (!data.success) {
+                alert(data.message);
+                return;
+            }
+
+            calendar.fullCalendar('removeEvents', id);
+            confirmModal.modal('hide');
+        });
+    });
+});
+
+$.fn.serializeObject = function () {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 </script>

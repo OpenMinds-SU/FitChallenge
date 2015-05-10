@@ -1,6 +1,7 @@
 ﻿namespace Fmi.OpenMinds.FitChallenge.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Event
     {
@@ -18,10 +19,12 @@
 
         public int WorkoutId { get; set; }
 
-        public string UserId { get; set; }
-
+        [ForeignKey("WorkoutId")]
         public virtual Workout Workout { get; set; }
 
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
     }
 }

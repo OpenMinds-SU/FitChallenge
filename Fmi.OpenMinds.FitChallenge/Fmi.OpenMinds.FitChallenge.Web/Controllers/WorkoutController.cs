@@ -1,10 +1,12 @@
 ﻿using Fmi.OpenMinds.FitChallenge.Data;
 using Fmi.OpenMinds.FitChallenge.Models;
 using System;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using System.Collections;
 using System.Collections.Generic;
+using Fmi.OpenMinds.FitChallenge.Web.Models;
 
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
@@ -18,69 +20,72 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             this.context = context;        
         }
 
-        // Filtering The Workouts only for the Current User
-        public ICollection<Workout> GetCurrentUserWorkouts()
-        {
-            var currentUser = User.Identity.GetUserId();
-            ICollection<Workout> userWorkouts = new HashSet<Workout>();
-            foreach (var workout in context.Workouts)
-            {
-                if (workout.UserId == currentUser)
-                {
-                    userWorkouts.Add(workout);
-                }
-            }
-            return userWorkouts;
-        }
-
-
-        public ICollection<Exercise> GetCurrentUserExercises()
-        {
-            var currentUser = User.Identity.GetUserId();
-            ICollection<Exercise> userExercises = new HashSet<Exercise>();
-            foreach (var exercise in context.Exercises)
-            {
-                if (exercise.UserId == currentUser || exercise.UserId == "NULL")
-                {
-                    userExercises.Add(exercise);
-                }
-            }
-            return userExercises;
-        }
-
-        // GET: Workout
         public ActionResult Index()
         {
-            return View(GetCurrentUserWorkouts());
+            var currentUserId = User.Identity.GetUserId();
+            var userWorkouts = this.context.Workouts
+                .Where(w => w.UserId == currentUserId || w.UserId == null);
+
+            return View(userWorkouts);
         }
 
-
-        // GET : Workout/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            var workout = new Workout();
-            
-            ViewBag.ExercisesAll = new SelectList(GetCurrentUserExercises(), "Id", "Name");
+            var workout = new WorkoutViewModel();
+            GetUserExercises();
             return View(workout);
         }
 
-        // POST : Workout/Create
+
         [HttpPost]
-        public ActionResult Create(Workout workout, string MuscleGroupsAll, string ExercisesAll)
+        public ActionResult Create(WorkoutViewModel model)
         {
-            if (!ModelState.IsValid)
+            GetUserExercises();
+
+            if (model.WorkoutExercises == null)
             {
-                return View(workout);
+                ModelState.AddModelError("WorkoutExercises", "Please add exercises");
+                return View(model);
             }
 
-            //var findMuscleGroup = context.MuscleGroups.Find(Int32.Parse(MuscleGroupsAll)); TODO
-            var findExercise = context.Exercises.Find(Int32.Parse(ExercisesAll));
+            model.WorkoutExercises = model.WorkoutExercises
+                .Where(e => e.Sets > 0 && e.Repeats > 0).ToList();
 
-            //workout.MuscleGroups.Add(findMuscleGroup);
-            //workout.Exercises.Add(findExercise);
+            if (!model.WorkoutExercises.Any()) 
+            {
+                ModelState.AddModelError("WorkoutExercises", "Please add valid exercises");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var workout = new Workout();
+            workout.Name = model.Name;
             workout.UserId = User.Identity.GetUserId();
             context.Workouts.Add(workout);
+
+            foreach (var musculeGroup in model.MuscleGroups)
+            {
+                context.WorkoutMuscleGroups.Add(new WorkoutMuscleGroup()
+                {
+                    Workout = workout,
+                    MuscleGroup = musculeGroup
+                });
+            }
+
+            foreach (var workoutExercise in model.WorkoutExercises)
+            {
+                workoutExercise.Workout = workout;
+                context.WorkoutExercises.Add(workoutExercise);
+            }
+
             context.SaveChanges();
+
+            //workout.Exercises.Add(findExercise);
+
             return RedirectToAction("Index");
         }
 
@@ -123,5 +128,13 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [NonAction]
+        private void GetUserExercises()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var userExercises = context.Exercises
+                .Where(ex => ex.UserId == currentUserId || ex.UserId == null);
+            ViewBag.Exercises = new SelectList(userExercises, "Id", "Name");
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         }
 
         // Filtering The Exercises for The Current User
+        [NonAction]
         public IQueryable<Exercise> GetCurrentUserExercises()
         {
             var currentUserId = User.Identity.GetUserId();

@@ -20,6 +20,10 @@
 
         public IDbSet<Workout> Workouts { get; set; }
 
+        public IDbSet<WorkoutMuscleGroup> WorkoutMuscleGroups { get; set; }
+
+        public IDbSet<WorkoutExercise> WorkoutExercises { get; set; }
+
         public IDbSet<Event> Events { get; set; }
     }
 

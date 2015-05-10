@@ -9,7 +9,7 @@
         {
             this.Events = new HashSet<Event>();
             this.WorkoutExercises = new HashSet<WorkoutExercise>();
-            this.MuscleGroups = new HashSet<MuscleGroupType>();
+            this.WorkoutMuscleGroups = new HashSet<WorkoutMuscleGroup>();
         }
 
         public int Id { get; set; }
@@ -24,7 +24,7 @@
 
         public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; }
 
-        public virtual ICollection<MuscleGroupType> MuscleGroups { get; set; }
+        public virtual ICollection<WorkoutMuscleGroup> WorkoutMuscleGroups { get; set; }
 
         public virtual ICollection<Event> Events { get; set; }
     }

@@ -18,7 +18,7 @@
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual ICollection<Exercise> Exercises { get; set; }
 

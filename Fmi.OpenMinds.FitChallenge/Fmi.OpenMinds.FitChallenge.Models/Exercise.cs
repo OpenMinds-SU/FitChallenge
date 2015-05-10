@@ -7,7 +7,7 @@ namespace Fmi.OpenMinds.FitChallenge.Models
     {
         public Exercise()
         {
-            this.Workout = new HashSet<Workout>();
+            this.WorkoutExercises = new HashSet<WorkoutExercise>();
         }
 
         public int Id { get; set; }
@@ -18,10 +18,12 @@ namespace Fmi.OpenMinds.FitChallenge.Models
 
         public string Url { get; set; }
 
-        public int MainMuscleGroupId { get; set; }
+        public MuscleGroupType MainMuscleGroup { get; set; }
 
         public string UserId { get; set; }
 
-        public ICollection<Workout> Workout { get; set; }
+        public virtual User User { get; set;  }
+
+        public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; }
     }
 }

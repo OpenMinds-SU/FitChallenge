@@ -197,7 +197,6 @@
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MuscleGroupController.cs" />
     <Compile Include="Controllers\WorkoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -283,17 +282,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\MuscleGroup\Index.cshtml" />
-    <Content Include="Views\MuscleGroup\Create.cshtml" />
-    <Content Include="Views\MuscleGroup\Edit.cshtml" />
-    <Content Include="Views\MuscleGroup\Delete.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
     <Content Include="Views\Workout\Index.cshtml" />
     <Content Include="Views\Workout\Create.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Exercise\Delete.cshtml" />
     <Content Include="Views\Exercise\Edit.cshtml" />
-    <Content Include="Views\Exercise\Create.cshtml" />
     <Content Include="Views\Calendar\Edit.cshtml" />
     <Content Include="Views\Workout\Edit.cshtml" />
     <Content Include="Views\Workout\Delete.cshtml" />

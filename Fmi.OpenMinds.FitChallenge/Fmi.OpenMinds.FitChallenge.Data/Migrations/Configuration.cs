@@ -10,8 +10,7 @@ namespace Fmi.OpenMinds.FitChallenge.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            this.AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "Fmi.OpenMinds.FitChallenge.Data.FitChallengeDbContext";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Fmi.OpenMinds.FitChallenge.Data.FitChallengeDbContext context)

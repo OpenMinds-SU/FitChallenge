@@ -33,6 +33,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             return userWorkouts;
         }
 
+
         public ICollection<Exercise> GetCurrentUserExercises()
         {
             var currentUser = User.Identity.GetUserId();
@@ -59,7 +60,6 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         {
             var workout = new Workout();
             
-            ViewBag.MuscleGroupsAll = new SelectList(context.MuscleGroups, "Id", "Name");
             ViewBag.ExercisesAll = new SelectList(GetCurrentUserExercises(), "Id", "Name");
             return View(workout);
         }
@@ -73,11 +73,11 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
                 return View(workout);
             }
 
-            var findMuscleGroup = context.MuscleGroups.Find(Int32.Parse(MuscleGroupsAll));
+            //var findMuscleGroup = context.MuscleGroups.Find(Int32.Parse(MuscleGroupsAll)); TODO
             var findExercise = context.Exercises.Find(Int32.Parse(ExercisesAll));
 
-            workout.MuscleGroups.Add(findMuscleGroup);
-            workout.Exercises.Add(findExercise);
+            //workout.MuscleGroups.Add(findMuscleGroup);
+            //workout.Exercises.Add(findExercise);
             workout.UserId = User.Identity.GetUserId();
             context.Workouts.Add(workout);
             context.SaveChanges();

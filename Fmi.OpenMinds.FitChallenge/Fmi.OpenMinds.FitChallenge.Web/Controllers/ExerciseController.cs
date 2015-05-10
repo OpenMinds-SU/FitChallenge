@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Linq;
 using Fmi.OpenMinds.FitChallenge.Data;
 using Fmi.OpenMinds.FitChallenge.Models;
 using System.Collections.Generic;
@@ -17,17 +18,11 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         }
 
         // Filtering The Exercises for The Current User
-        public ICollection<Exercise> GetCurrentUserExercises()
+        public IQueryable<Exercise> GetCurrentUserExercises()
         {
-            var currentUser = User.Identity.GetUserId();
-            ICollection<Exercise> userExercises = new HashSet<Exercise>();
-            foreach (var exercise in context.Exercises)
-            {
-                if (exercise.UserId == currentUser && exercise.UserId == string.Empty)
-                {
-                    userExercises.Add(exercise);
-                }
-            }
+            var currentUserId = User.Identity.GetUserId();
+            var userExercises = context.Exercises
+                .Where(ex => ex.UserId == currentUserId || ex.UserId == null);
             return userExercises;
         }
         
@@ -40,16 +35,21 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         public ActionResult Create()
         {
             var exercise = new Exercise();
-            return View(exercise);
+            return View("Edit", exercise);
         }
 
         // POST : Exercise/Create
         [HttpPost]
-        public ActionResult Create( Exercise exercise)
+        public ActionResult Create(Exercise exercise)
         {
+            if (exercise.MainMuscleGroup == MuscleGroupType.Unknown)
+            {
+                ModelState.AddModelError("MainMuscleGroup", "Please select muscle group.");
+            }
+
             if (!ModelState.IsValid)
             {
-                return View(exercise);
+                return View("Edit", exercise);
             }
             exercise.UserId = User.Identity.GetUserId();
             context.Exercises.Add(exercise);
@@ -61,13 +61,18 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         public ActionResult Edit(int id)
         {
             var exerciseEdit = context.Exercises.Find(id);
-            return View("Edit", exerciseEdit);
+            return View(exerciseEdit);
         }
 
         // POST : Exercise/Edit
         [HttpPost]
         public ActionResult Edit(Exercise exercise)
         {
+            if (exercise.MainMuscleGroup == MuscleGroupType.Unknown)
+            {
+                ModelState.AddModelError("MainMuscleGroup", "Please select muscle group.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(exercise);
@@ -76,6 +81,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             var oldExercise = context.Exercises.Find(exercise.Id);
             oldExercise.Name = exercise.Name;
             oldExercise.Url = exercise.Url;
+            oldExercise.MainMuscleGroup = exercise.MainMuscleGroup;
             context.SaveChanges();
 
             return RedirectToAction("Index");

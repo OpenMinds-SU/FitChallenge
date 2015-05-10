@@ -54,26 +54,6 @@
   <ItemGroup>
     <Compile Include="FitChallengeDbContext.cs" />
     <Compile Include="IFitChallengeDbContext.cs" />
-    <Compile Include="Migrations\201505090921035_Init.cs" />
-    <Compile Include="Migrations\201505090921035_Init.Designer.cs">
-      <DependentUpon>201505090921035_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505092036333_ConstructorsEditted.cs" />
-    <Compile Include="Migrations\201505092036333_ConstructorsEditted.Designer.cs">
-      <DependentUpon>201505092036333_ConstructorsEditted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505092057528_Deleted2Models.cs" />
-    <Compile Include="Migrations\201505092057528_Deleted2Models.Designer.cs">
-      <DependentUpon>201505092057528_Deleted2Models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505100822333_WorkoutUserIdTypeChanged.cs" />
-    <Compile Include="Migrations\201505100822333_WorkoutUserIdTypeChanged.Designer.cs">
-      <DependentUpon>201505100822333_WorkoutUserIdTypeChanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505100950123_ExerciseUserIdAdded.cs" />
-    <Compile Include="Migrations\201505100950123_ExerciseUserIdAdded.Designer.cs">
-      <DependentUpon>201505100950123_ExerciseUserIdAdded.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,23 +66,6 @@
       <Project>{c3a04280-8c60-4038-ab33-09a1a335e172}</Project>
       <Name>Fmi.OpenMinds.FitChallenge.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505090921035_Init.resx">
-      <DependentUpon>201505090921035_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505092036333_ConstructorsEditted.resx">
-      <DependentUpon>201505092036333_ConstructorsEditted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505092057528_Deleted2Models.resx">
-      <DependentUpon>201505092057528_Deleted2Models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505100822333_WorkoutUserIdTypeChanged.resx">
-      <DependentUpon>201505100822333_WorkoutUserIdTypeChanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505100950123_ExerciseUserIdAdded.resx">
-      <DependentUpon>201505100950123_ExerciseUserIdAdded.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

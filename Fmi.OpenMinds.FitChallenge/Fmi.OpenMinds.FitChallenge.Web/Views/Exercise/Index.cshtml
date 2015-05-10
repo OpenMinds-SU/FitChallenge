@@ -15,10 +15,9 @@
 <table class="table table-striped table-hover table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Url</th>
-            <th>MuscleGroup</th>
+            <th>Main muscle group</th>
             <th width="200">Actions</th>
         </tr>
     </thead>
@@ -26,11 +25,12 @@
         @foreach (var exercise in Model)
         {
             <tr>
-                <td>@exercise.Id</td>
                 <td>@exercise.Name</td>
                 <td> <a href=@exercise.Url>@exercise.Url</a></td>
-                <td>@exercise.MainMuscleGroupId</td>
+                <td>@exercise.MainMuscleGroup</td>
                 <td>
+                    @if (exercise.UserId != null)
+                    { 
                     <div class="btn-group" role="group">
                         <a class="btn btn-default" href="@Url.Action("Edit", "Exercise", new { Id = exercise.Id })">
                             Edit
@@ -41,6 +41,7 @@
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
                         </a>
                     </div>
+                    }
                 </td>
             </tr>
         }

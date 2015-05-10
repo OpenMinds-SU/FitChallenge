@@ -2,9 +2,12 @@
 <form>
     @if (Model.Id != 0)
     {
-        @*@Html.HiddenFor(m => m.Id);*@
+        @Html.HiddenFor(m => m.Id)
     }
-    @Html.HiddenFor(m => m.Date)
+    else
+    {
+        @Html.HiddenFor(m => m.Date)
+    }
     <div class="form-group">
         <label>Workout</label>
         @Html.DropDownListFor(m => m.WorkoutId,

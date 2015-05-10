@@ -97,13 +97,13 @@
                     var currentEvent = this.context.Events.Find(eventModel.Id);
                     if (currentEvent.UserId == User.Identity.GetUserId())
                     {
-                        currentEvent.Date = eventModel.Date;
                         currentEvent.Food = eventModel.Food;
                         currentEvent.Supplements = eventModel.Supplements;
                         currentEvent.IsTrainingDone = eventModel.IsTrainingDone;
                         currentEvent.SupplementsAreDrunken = eventModel.SupplementsAreDrunken;
                         currentEvent.WorkoutId = eventModel.WorkoutId;
-
+                        currentEvent.Workout = context.Workouts.Find(currentEvent.WorkoutId);
+                        
                         this.context.SaveChanges();
                         var eventViewModel = mapEvent(currentEvent);
                         return Json(new { success = true, message = "Event was successfully updated!", data = eventViewModel });
@@ -129,8 +129,10 @@
                     this.context.Events.Add(eventDataModel);
                     this.context.SaveChanges();
 
-                    eventDataModel = this.context.Events.FirstOrDefault(i => i.Id == eventDataModel.Id);
-
+                    if (eventDataModel.Workout == null)
+                    {
+                        eventDataModel.Workout = context.Workouts.Find(eventDataModel.WorkoutId);
+                    }
 
                     var eventViewModel = mapEvent(eventDataModel);
                     return Json(new { success = true, message = "Event was successfully created!", data = eventViewModel });

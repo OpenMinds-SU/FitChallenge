@@ -19,12 +19,10 @@
 
         public int WorkoutId { get; set; }
 
-        [ForeignKey("WorkoutId")]
         public virtual Workout Workout { get; set; }
 
         public string UserId { get; set; }
 
-        [ForeignKey("UserId")]
         public virtual User User { get; set; }
     }
 }

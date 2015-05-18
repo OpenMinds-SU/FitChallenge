@@ -84,13 +84,24 @@
         if (eventsForTheDay.length > 0) {
             return;
         }
-
+       
         $.get('/Calendar/Create')
         .done(function (view) {
             saveModal.find('.modal-body').html(view);
             saveModal.find('#Date').val(dateText);
             saveModal.modal('show');
+            if (isFuture(date)) {
+                $('#IsTrainingDone').attr('disabled', true);
+                $('#SupplementsAreDrunken').attr('disabled', true);
+            }
         });
+    }
+
+    function isFuture(date) {
+        var today = moment();
+        var diff = today.diff(date, 'days', true);
+        var isFuture = diff < 0;
+        return isFuture;
     }
 
     function eventClick(event, jsEvent, view) {
@@ -109,6 +120,10 @@
             saveModal.find('.modal-body').html(view);
             saveModal.find('#Date').val(dateText);
             saveModal.modal('show');
+            if (isFuture(date)) {
+                $('#IsTrainingDone').attr('disabled', true);
+                $('#SupplementsAreDrunken').attr('disabled', true);
+            }
         });
     }
 

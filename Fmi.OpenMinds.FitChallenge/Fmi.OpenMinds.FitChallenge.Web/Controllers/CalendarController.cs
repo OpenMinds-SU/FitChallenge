@@ -74,7 +74,10 @@
 
         private void InitWorkoutSelectList()
         {
+            var userId = this.User.Identity.GetUserId();
+
             ViewBag.WorkoutSelectList = this.context.Workouts
+                .Where(item => item.UserId == userId)
                 .Select(w => new SelectListItem() { Value = w.Id.ToString(), Text = w.Name });
         }
 

@@ -1,14 +1,95 @@
-﻿@model Fmi.OpenMinds.FitChallenge.Models.Workout
+﻿@model Fmi.OpenMinds.FitChallenge.Web.Models.WorkoutViewModel
+@using Fmi.OpenMinds.FitChallenge.Models
 
-<h2>Workout Edit</h2>
+<h2>Edit workout</h2>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
-    <p>Edit the name of the selected workout?</p>
+
+    <p>Edit of the workout</p>
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter name" })
     </div>
+    <div class="form-group">
+        @Html.Label("Muscle groups:")
+        @Html.DropDownList("MuscleGroups", new SelectList(Enum.GetNames(typeof(MuscleGroupType)).Where(item => item != "Unknown")), new { @class = "form-control", multiple = "multiple" })
+    </div>
+
+    <button type="button" class="btn btn-default btn-sm" id="add-exercise-btn">
+        Add exercise
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+    <table class="table" id="tableExercises">
+        <tr>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Repeats</th>
+        </tr>
+        @foreach (var workoutExercise in Model.WorkoutExercises)
+        {
+            <tr>
+                <td>
+                    @workoutExercise.Exercise.Name
+                    @*@Html.DropDownListFor(model => model.WorkoutExercises, (SelectList)ViewBag.Exercises, new { @class = "form-control" })*@
+                </td>
+                <td>
+                    @Html.TextBox("WorkoutExercises[index].Sets", workoutExercise.Repeats, new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.TextBox("WorkoutExercises[index].Repeats", workoutExercise.Sets, new { @class = "form-control" })
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default btn-group-sm" id="delete-exercise-btn">
+                        Delete
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
     <input type="submit" value="Save" class="btn btn-default" />
     @Html.ActionLink("Cancel", "Index", "Workout", new { }, new { @class = "btn btn-default" })
 }
+<table>
+    <tr id="template-row">
+        <td>
+            @Html.DropDownList("WorkoutExercises[index].ExerciseId", (SelectList)ViewBag.Exercises, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.TextBox("WorkoutExercises[index].Sets", null, new { @class = "form-control" })
+        </td>
+        <td>
+            @Html.TextBox("WorkoutExercises[index].Repeats", null, new { @class = "form-control" })
+        </td>
+        <td>
+            <button type="button" class="btn btn-default btn-group-sm removeRow" id="delete-exercise-btn">
+                Delete
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </td>
+    </tr>
+</table>
+
+
+<script>
+    $(function () {
+        
+        $('#template-row').hide();
+        var index = 0;
+        $('#add-exercise-btn').on('click', function () {
+            var html = $('#template-row').html();
+            html = html.replace(/index/g, index);
+            $('table.table').append('<tr>' + html + '</tr>');
+            index++;
+        });
+
+    });
+
+    jQuery(function ($) {
+        $("#tableExercises").on("click", "#delete-exercise-btn", function () {
+            $(this).closest('tr').remove();
+        });
+    });
+
+</script>

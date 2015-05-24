@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MeasurementController.cs" />
     <Compile Include="Controllers\WorkoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -292,6 +293,10 @@
     <Content Include="Views\Calendar\Edit.cshtml" />
     <Content Include="Views\Workout\Edit.cshtml" />
     <Content Include="Views\Workout\Delete.cshtml" />
+    <Content Include="Views\Measurement\Index.cshtml" />
+    <Content Include="Views\Measurement\Edit.cshtml" />
+    <Content Include="Views\Measurement\Delete.cshtml" />
+    <Content Include="Views\Measurement\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

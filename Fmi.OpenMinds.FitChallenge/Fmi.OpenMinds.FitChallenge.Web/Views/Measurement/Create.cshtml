@@ -1,0 +1,21 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Models.Measurement
+@using Fmi.OpenMinds.FitChallenge.Models
+
+<h2>Create exercise</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+
+    @foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
+    {
+        @measurementType
+        @*@foreach (var measurement in Model.MeasurementValues)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MeasurementValues.GetEnumerator)
+                </div>
+            }*@
+
+    }
+}

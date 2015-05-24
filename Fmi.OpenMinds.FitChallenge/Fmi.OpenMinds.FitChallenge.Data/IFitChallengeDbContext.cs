@@ -15,6 +15,8 @@ namespace Fmi.OpenMinds.FitChallenge.Data
 
         IDbSet<Event> Events { get; set; }
 
+        IDbSet<Measurement> Measurements { get; set; }
+
         int SaveChanges();
     }
 }

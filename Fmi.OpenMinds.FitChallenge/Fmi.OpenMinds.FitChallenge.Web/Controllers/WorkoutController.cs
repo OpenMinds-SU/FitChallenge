@@ -61,7 +61,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             {
                 return View(model);
             }
-
+            
             var workout = new Workout();
             workout.Name = model.Name;
             workout.UserId = User.Identity.GetUserId();
@@ -84,8 +84,6 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
             context.SaveChanges();
 
-            //workout.Exercises.Add(findExercise);
-
             return RedirectToAction("Index");
         }
 
@@ -93,20 +91,133 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         public ActionResult Edit(int id)
         {
             var workoutEdit = context.Workouts.Find(id);
-            return View(workoutEdit);
+            GetUserExercises();
+
+            var workoutView = new WorkoutViewModel();
+            workoutView.Name = workoutEdit.Name;
+            workoutView.Id = workoutEdit.Id;
+            workoutView.WorkoutExercises = workoutEdit.WorkoutExercises;
+
+            return View(workoutView);
         }
 
         // POST : Workout/Edit
         [HttpPost]
-        public ActionResult Edit(Workout workout)
+        public ActionResult Edit(WorkoutViewModel model)
         {
-            if (!ModelState.IsValid)
+            //TODO : Shoud be fixed
+            GetUserExercises();
+
+            if (model.WorkoutExercises == null)
             {
-                return View(workout);
+                ModelState.AddModelError("WorkoutExercises", "Please add exercises");
+                return View(model);
             }
 
-            var workoutOld = context.Workouts.Find(workout.Id);
-            workoutOld.Name = workout.Name;
+            model.WorkoutExercises = model.WorkoutExercises
+                .Where(e => e.Sets > 0 && e.Repeats > 0).ToList();
+
+            if (!model.WorkoutExercises.Any())
+            {
+                ModelState.AddModelError("WorkoutExercises", "Please add valid exercises");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+
+            // MINE
+
+            var workoutEditted = context.Workouts.Find(model.Id);
+
+
+
+
+            //var workoutOld = context.Workouts.Find(workout.Id);
+            //workoutOld.Name = workout.Name;
+
+            //FROME CREATE
+
+            //var workout = new Workout();
+            
+            //workout.UserId = User.Identity.GetUserId();
+            //context.Workouts.Add(workout);
+
+            foreach (var muscleGroup in workoutEditted.WorkoutMuscleGroups)
+            {
+                context.WorkoutMuscleGroups.Remove(muscleGroup);
+            }
+
+
+            foreach (var workoutExercise in workoutEditted.WorkoutExercises)
+            {
+                context.WorkoutExercises.Remove(workoutExercise);
+            }
+
+
+
+            workoutEditted.Name = model.Name;
+
+
+
+            foreach (var musculeGroup in model.MuscleGroups)
+            {
+                context.WorkoutMuscleGroups.Add(new WorkoutMuscleGroup()
+                {
+                    Workout = workoutEditted,
+                    MuscleGroup = musculeGroup
+                });
+            }
+
+            //foreach (var muscleGroupModel in model.MuscleGroups)
+            //{
+            //    foreach (var muscleGroup in workoutEditted.WorkoutMuscleGroups)
+            //    {
+            //        if (muscleGroup.MuscleGroup != muscleGroupModel)
+            //        {
+            //            context.WorkoutMuscleGroups.Add(new WorkoutMuscleGroup()
+            //            {
+            //                Workout = workoutEditted,
+            //                MuscleGroup = muscleGroupModel
+            //            });
+            //        }
+            //        else if(muscleGroup.MuscleGroup == muscleGroupModel)
+            //        {
+            //            muscleGroup.Workout = workoutEditted;
+            //        }
+            //    }
+            // }
+
+
+            
+
+            foreach (var workoutExercise in model.WorkoutExercises)
+            {
+                workoutExercise.Workout = workoutEditted;
+                context.WorkoutExercises.Add(workoutExercise);
+            }
+
+            //foreach (var workoutExerciseModel in model.WorkoutExercises)
+            //{
+            //    foreach (var workoutExercise in workoutEditted.WorkoutExercises)
+            //    {
+            //        if (workoutExercise.Exercise.Name == workoutExerciseModel.Exercise.Name)
+            //        {
+            //            workoutExercise.Sets = workoutExerciseModel.Sets;
+            //            workoutExercise.Repeats = workoutExercise.Repeats;
+            //        }
+            //        else
+            //        {
+            //            workoutExerciseModel.Workout = workoutEditted;
+            //            context.WorkoutExercises.Add(workoutExerciseModel);
+            //        }
+                    
+            //    }
+                
+            //}
+
             context.SaveChanges();
 
             return RedirectToAction("Index");

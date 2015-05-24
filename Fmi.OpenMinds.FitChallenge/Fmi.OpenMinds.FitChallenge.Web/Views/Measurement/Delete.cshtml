@@ -1,0 +1,12 @@
+﻿@model int
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Delete Measurement</h2>
+@using (Html.BeginForm())
+{
+    <p>Are you sure you want to delete this measurement?</p>
+    @Html.Hidden("Id", Model)
+    <input type="submit" value="Yes" class="btn btn-default" />
+    @Html.ActionLink("No", "Index", "Measurement", new { }, new { @class = "btn btn-default" })
+}

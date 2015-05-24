@@ -27,6 +27,8 @@
         public IDbSet<Event> Events { get; set; }
 
         public IDbSet<Measurement> Measurements { get; set; }
+
+        public IDbSet<MeasurementValue> MeasurementValues { get; set; }
     }
 
 }

@@ -1,21 +1,32 @@
 ﻿@model Fmi.OpenMinds.FitChallenge.Models.Measurement
 @using Fmi.OpenMinds.FitChallenge.Models
 
-<h2>Create exercise</h2>
+<h2>Create measurement</h2>
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
-
-    @foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
+    var index = 0;
+    
+    @*<div class="form-group">
+        @Html.LabelFor(m => m.Date)
+        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Enter date" })
+    </div>*@
+    
+    foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
     {
-        @measurementType
-        @*@foreach (var measurement in Model.MeasurementValues)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(m => m.MeasurementValues.GetEnumerator)
-                </div>
-            }*@
 
+        <div class="form-group">
+            @Html.Label(@measurementType.ToString())
+            @Html.TextBox("MeasurementValues[" + @index + "].Value", null, new { @class = "form-control", placeholder = "Enter value" })
+        </div>
+        index++;
     }
+    <div>
+        <input type="submit" value="Save" class="btn btn-default" />
+        <button type="button" class="btn btn-default" name="Back" onclick="location.href='@Url.Action("Index", "Measurement")'">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back
+        </button>
+    </div>
 }

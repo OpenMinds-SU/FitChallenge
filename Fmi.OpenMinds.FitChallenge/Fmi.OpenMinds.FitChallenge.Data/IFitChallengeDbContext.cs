@@ -17,6 +17,8 @@ namespace Fmi.OpenMinds.FitChallenge.Data
 
         IDbSet<Measurement> Measurements { get; set; }
 
+        IDbSet<MeasurementValue> MeasurementValues { get; set; }
+
         int SaveChanges();
     }
 }

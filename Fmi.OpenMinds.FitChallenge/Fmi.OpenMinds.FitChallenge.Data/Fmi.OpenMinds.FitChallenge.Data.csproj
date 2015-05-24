@@ -54,6 +54,14 @@
   <ItemGroup>
     <Compile Include="FitChallengeDbContext.cs" />
     <Compile Include="IFitChallengeDbContext.cs" />
+    <Compile Include="Migrations\201505241545015_AddMeasurements.cs" />
+    <Compile Include="Migrations\201505241545015_AddMeasurements.Designer.cs">
+      <DependentUpon>201505241545015_AddMeasurements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505241734046_AddMeasurementValues.cs" />
+    <Compile Include="Migrations\201505241734046_AddMeasurementValues.Designer.cs">
+      <DependentUpon>201505241734046_AddMeasurementValues.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,6 +74,14 @@
       <Project>{c3a04280-8c60-4038-ab33-09a1a335e172}</Project>
       <Name>Fmi.OpenMinds.FitChallenge.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505241545015_AddMeasurements.resx">
+      <DependentUpon>201505241545015_AddMeasurements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505241734046_AddMeasurementValues.resx">
+      <DependentUpon>201505241734046_AddMeasurementValues.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

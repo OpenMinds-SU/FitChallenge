@@ -35,17 +35,32 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Measurement measurement)
+        public ActionResult Create(Measurement measurementView)
         {
             try
             {
+                var measurement = new Measurement();
+                measurement.UserId = User.Identity.GetUserId();
+
+                MeasurementType measurementTypeIndex = MeasurementType.Weight;
+
+                foreach (var measurementValue in measurementView.MeasurementValues)
+                {
+                    measurementValue.Measurement = measurement;
+                    measurementValue.MeasurementType = measurementTypeIndex;
+                    context.MeasurementValues.Add(measurementValue);
+                    measurementTypeIndex++;
+                }
+
+                context.Measurements.Add(measurement);
+                context.SaveChanges();
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(measurement);
+                return View(measurementView);
             }
         }
 
@@ -56,10 +71,17 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Measurement measurementEdit)
+        public ActionResult Edit(Measurement measurementEdit, List<Double> measurements)
         {
             try
-            {
+            { 
+                //foreach (Employee Emp in employees)
+                //{
+                //    Employee Existed_Emp = DbCompany.Employees.Find(Emp.ID);
+                //    Existed_Emp.Name = Emp.Name;
+                //    Existed_Emp.Gender = Emp.Gender;
+                //    Existed_Emp.Company = Emp.Company;
+                //}
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");

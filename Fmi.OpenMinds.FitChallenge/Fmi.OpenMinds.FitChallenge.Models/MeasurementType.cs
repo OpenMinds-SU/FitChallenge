@@ -4,8 +4,8 @@
     {
         Weight,
         Neck,
-        Chest,
-        Biceps,
+        LeftArm,
+        RightArm,
         Triceps,
         Waist,
         Hips,

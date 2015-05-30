@@ -37,7 +37,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         [HttpPost]
         public ActionResult Create(Measurement measurementView)
         {
-            try
+            
             {
                 var measurement = new Measurement();
                 measurement.UserId = User.Identity.GetUserId();
@@ -54,13 +54,11 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
                 context.Measurements.Add(measurement);
                 context.SaveChanges();
-                // TODO: Add insert logic here
-
                 return RedirectToAction("Index");
             }
-            catch
+            
             {
-                return View(measurementView);
+                //return View(measurementView);
             }
         }
 

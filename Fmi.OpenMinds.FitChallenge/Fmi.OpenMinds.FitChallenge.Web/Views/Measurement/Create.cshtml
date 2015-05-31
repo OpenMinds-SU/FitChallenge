@@ -20,7 +20,7 @@
         double? value = measurementValue != null ? measurementValue.Value : (double?)null;
         <div class="form-group">
             @Html.Label(@measurementType.ToString())
-            @Html.TextBox("MeasurementValues[" + @index + "].Value", value, new { @class = "form-control", placeholder = "Enter value" })
+            @Html.TextBox("MeasurementValues[" + @index + "].Value", value, new { @class = "form-control", placeholder = "Enter value", @maxlength = "3"})
         </div>
         index++;
     }

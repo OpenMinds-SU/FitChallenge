@@ -42,9 +42,10 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             {
                 Date = DateTime.Today
             };
-
+            var currentUserId = User.Identity.GetUserId();
             var lastMeasurement = this.context.Measurements
-                .OrderByDescending(x => x.Date)
+                .Where(m => m.UserId == currentUserId)
+                .OrderByDescending(m => m.Date)
                 .FirstOrDefault();
 
             if(lastMeasurement != null)
@@ -92,25 +93,26 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Measurement measurementEdit, List<Double> measurements)
+        public ActionResult Edit(Measurement measurementEdit)
         {
-            try
-            { 
-                //foreach (Employee Emp in employees)
-                //{
-                //    Employee Existed_Emp = DbCompany.Employees.Find(Emp.ID);
-                //    Existed_Emp.Name = Emp.Name;
-                //    Existed_Emp.Gender = Emp.Gender;
-                //    Existed_Emp.Company = Emp.Company;
-                //}
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
+            if (!ModelState.IsValid)
             {
-                return View();
+                return View(measurementEdit);
             }
+
+            var measurementNew = context.Measurements.Find(measurementEdit.Id);
+            int indexMeasurementValue = 0;
+            var measurementNewValuesArray = measurementNew.MeasurementValues.ToList();
+
+            foreach (var measurementValue in measurementEdit.MeasurementValues)
+            {
+                measurementNewValuesArray[indexMeasurementValue].Value = measurementValue.Value; 
+                indexMeasurementValue++;
+            }
+            measurementNew.MeasurementValues = measurementNewValuesArray;
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)

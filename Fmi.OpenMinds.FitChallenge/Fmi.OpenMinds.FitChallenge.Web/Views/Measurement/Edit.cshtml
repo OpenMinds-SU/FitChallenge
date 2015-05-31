@@ -6,16 +6,24 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
+    var index = 0;
     
-    @foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
+    foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
     {
-        @measurementType
-        @*@foreach (var measurement in Model.MeasurementValues)
-        {
-            <div class="form-group">
-                @Html.LabelFor(m => m.MeasurementValues.GetEnumerator)
-            </div>
-        }*@
-
+        var measurementValue = Model.MeasurementValues
+            .FirstOrDefault(mv => mv.MeasurementType == (MeasurementType)measurementType);
+        double? value = measurementValue != null ? measurementValue.Value : (double?)null;
+        <div class="form-group">
+            @Html.Label(@measurementType.ToString())
+            @Html.TextBox("MeasurementValues[" + @index + "].Value", value, new { @class = "form-control", placeholder = "Enter value", maxlength = "3"})
+        </div>
+        index++;
     }
+    <div>
+        <input type="submit" value="Save" class="btn btn-default" />
+        <button type="button" class="btn btn-default" name="Back" onclick="location.href='@Url.Action("Index", "Measurement")'">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back
+        </button>
+    </div>
 }

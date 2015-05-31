@@ -8,17 +8,19 @@
     @Html.ValidationSummary()
     var index = 0;
     
-    @*<div class="form-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.Date)
-        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Enter date" })
-    </div>*@
+        @Html.EditorFor(m => m.Date, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter date" } })
+    </div>
     
     foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
     {
-
+        var measurementValue = Model.MeasurementValues
+            .FirstOrDefault(mv => mv.MeasurementType == (MeasurementType)measurementType);
+        double? value = measurementValue != null ? measurementValue.Value : (double?)null;
         <div class="form-group">
             @Html.Label(@measurementType.ToString())
-            @Html.TextBox("MeasurementValues[" + @index + "].Value", null, new { @class = "form-control", placeholder = "Enter value" })
+            @Html.TextBox("MeasurementValues[" + @index + "].Value", value, new { @class = "form-control", placeholder = "Enter value" })
         </div>
         index++;
     }

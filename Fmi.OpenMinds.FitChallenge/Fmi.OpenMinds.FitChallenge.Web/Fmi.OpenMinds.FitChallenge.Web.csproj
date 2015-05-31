@@ -297,6 +297,8 @@
     <Content Include="Views\Measurement\Edit.cshtml" />
     <Content Include="Views\Measurement\Delete.cshtml" />
     <Content Include="Views\Measurement\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Scripts\jquery.validator.methods.date.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

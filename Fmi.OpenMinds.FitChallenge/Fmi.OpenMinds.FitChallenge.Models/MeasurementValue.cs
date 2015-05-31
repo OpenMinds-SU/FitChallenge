@@ -2,11 +2,6 @@
 {
     public class MeasurementValue
     {
-        public MeasurementValue()
-        {
-            this.Measurement = new Measurement();
-        }
-
         public int Id { get; set; }
 
         public MeasurementType MeasurementType { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Fmi.OpenMinds.FitChallenge.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,11 +19,18 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             this.context = context;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string userId = null)
         {
-            var currentUserId = User.Identity.GetUserId();
+            // TODO: check if currentUser can view measurements of user with specified userId;
+            
+            if (userId == null)
+            {
+                userId = User.Identity.GetUserId();
+            }
+
             var userMeasurements = this.context.Measurements
-                .Where(w => w.UserId == currentUserId || w.UserId == null);
+                .Where(m => m.UserId == userId)
+                .OrderBy(m => m.Date);
 
             return View(userMeasurements);
         }
@@ -30,36 +38,51 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var measurement = new Measurement();
+            var measurement = new Measurement() 
+            {
+                Date = DateTime.Today
+            };
+
+            var lastMeasurement = this.context.Measurements
+                .OrderByDescending(x => x.Date)
+                .FirstOrDefault();
+
+            if(lastMeasurement != null)
+            {
+                measurement.MeasurementValues = lastMeasurement.MeasurementValues;
+            }
+
             return View(measurement);
         }
 
         [HttpPost]
         public ActionResult Create(Measurement measurementView)
         {
-            
+            if(!ModelState.IsValid)
             {
-                var measurement = new Measurement();
-                measurement.UserId = User.Identity.GetUserId();
-
-                MeasurementType measurementTypeIndex = MeasurementType.Weight;
-
-                foreach (var measurementValue in measurementView.MeasurementValues)
-                {
-                    measurementValue.Measurement = measurement;
-                    measurementValue.MeasurementType = measurementTypeIndex;
-                    context.MeasurementValues.Add(measurementValue);
-                    measurementTypeIndex++;
-                }
-
-                context.Measurements.Add(measurement);
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                return View(measurementView);
             }
-            
+
+            string userId = User.Identity.GetUserId();
+            var measurement = new Measurement() 
             {
-                //return View(measurementView);
+                Date = measurementView.Date,
+                UserId = userId
+            };
+                
+            context.Measurements.Add(measurement);
+
+            MeasurementType measurementTypeIndex = MeasurementType.Weight;
+            foreach (var measurementValue in measurementView.MeasurementValues)
+            {
+                measurementValue.Measurement = measurement;
+                measurementValue.MeasurementType = measurementTypeIndex;
+                measurement.MeasurementValues.Add(measurementValue);
+                measurementTypeIndex++;
             }
+
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)

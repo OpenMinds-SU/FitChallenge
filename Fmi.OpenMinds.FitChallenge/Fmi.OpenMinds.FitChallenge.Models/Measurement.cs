@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace Fmi.OpenMinds.FitChallenge.Models
 {
     public class Measurement

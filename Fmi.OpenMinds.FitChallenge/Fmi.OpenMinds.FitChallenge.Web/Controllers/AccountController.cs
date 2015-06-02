@@ -173,6 +173,56 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult RegisterInstructor()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterInstructor(InstructorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User 
+                { 
+                    UserName = model.Email, 
+                    Email = model.Email, 
+                    AdditionalInformation = model.AdditionalInformation,
+                    ExperienceYears = model.ExperienceYears,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber= model.PhoneNumber,
+                    Skype = model.Skype
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var currentUser = UserManager.FindByName(user.UserName);
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Instructor");
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

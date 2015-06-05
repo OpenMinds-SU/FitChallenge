@@ -29,8 +29,7 @@
         public string LastName { get; set; }
 
         [Required]
-        [MinLength(0)]
-        [MaxLength(100)]
+        [Range(0,100)]
         public int ExperienceYears { get; set; }
 
         [Required]

@@ -1,14 +1,14 @@
-﻿@model Fmi.OpenMinds.FitChallenge.Web.Models.SportsmanViewModel
+﻿@model Fmi.OpenMinds.FitChallenge.Web.Models.InstructorViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Register instructor";
 }
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{    
+@using (Html.BeginForm("RegisterInstructor", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h4>Create a new instructor account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
@@ -41,12 +41,7 @@
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.IsMale, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.CheckBoxFor(m => m.IsMale, new { @class = "form-control" })
-        </div>
-    </div>
+    
     <div class="form-group">
         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -54,21 +49,9 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Weight, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.ExperienceYears, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Height, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Age, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.ExperienceYears, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

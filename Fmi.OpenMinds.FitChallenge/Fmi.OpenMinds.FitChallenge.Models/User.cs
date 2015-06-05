@@ -11,7 +11,7 @@
     public class User : IdentityUser
     {
         public User()
-            :base()
+            : base()
         {
             this.Events = new HashSet<Event>();
         }
@@ -22,27 +22,23 @@
         [StringLength(50)]
         public string LastName { get; set; }
 
-        public bool IsMale { get; set; }
+        public bool? IsMale { get; set; }
 
         [StringLength(100)]
         public string PhoneNumber { get; set; }
 
-        [MinLength(0)]
-        [MaxLength(100)]
-        public int ExperienceYears { get; set; }
+        [Range(0, 100)]
+        public int? ExperienceYears { get; set; }
 
-        [MinLength(40)]
-        [MaxLength(200)]
-        public int Weight { get; set; }
+        [Range(40, 200)]
+        public int? Weight { get; set; }
 
-        [MinLength(100)]
-        [MaxLength(300)]
-        public int Height { get; set; }
+        [Range(100, 300)]
+        public int? Height { get; set; }
 
-        [MinLength(18)]
-        [MaxLength(100)]
-        public int Age { get; set; }
-        
+        [Range(18, 100)]
+        public int? Age { get; set; }
+
         [StringLength(200)]
         public string Skype { get; set; }
 

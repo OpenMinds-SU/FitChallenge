@@ -1,6 +1,9 @@
 namespace Fmi.OpenMinds.FitChallenge.Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -15,18 +18,25 @@ namespace Fmi.OpenMinds.FitChallenge.Data.Migrations
 
         protected override void Seed(Fmi.OpenMinds.FitChallenge.Data.FitChallengeDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (context.Roles.Any())
+            {
+                return;
+            }
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            // Roles
+            var roles = new HashSet<string>
+            {
+                "Instructor",
+                "Sportsman"
+            };
+
+            foreach (var role in roles)
+            {
+                roleManager.Create(new IdentityRole { Name = role });
+            }
         }
     }
 }

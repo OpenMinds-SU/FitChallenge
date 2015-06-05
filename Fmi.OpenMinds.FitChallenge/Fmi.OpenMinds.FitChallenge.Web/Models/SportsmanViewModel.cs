@@ -35,16 +35,13 @@
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [MinLength(40)]
-        [MaxLength(200)]
+        [Range(40, 200)]
         public int Weight { get; set; }
 
-        [MinLength(100)]
-        [MaxLength(300)]
+        [Range(100, 300)]
         public int Height { get; set; }
 
-        [MinLength(18)]
-        [MaxLength(100)]
+        [Range(18, 100)]
         public int Age { get; set; }
 
         [StringLength(200)]

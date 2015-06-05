@@ -20,7 +20,7 @@ else
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Register as<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>@Html.ActionLink("Sportsman", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                <li><a href="#">Instructor</a></li>
+                <li>@Html.ActionLink("Instructor", "RegisterInstructor", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
             </ul>
         </li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>

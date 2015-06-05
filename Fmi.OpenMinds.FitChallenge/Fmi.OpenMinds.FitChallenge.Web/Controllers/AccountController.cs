@@ -148,14 +148,31 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(SportsmanViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    AdditionalInformation = model.AdditionalInformation,
+                    IsMale = model.IsMale,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Weight = model.Weight,
+                    Height = model.Height,
+                    Age = model.Age,
+                    PhoneNumber = model.PhoneNumber,
+                    Skype = model.Skype
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var currentUser = UserManager.FindByName(user.UserName);
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Sportsman");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

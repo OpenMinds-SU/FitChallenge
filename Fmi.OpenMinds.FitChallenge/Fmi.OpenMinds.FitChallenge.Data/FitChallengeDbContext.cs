@@ -31,6 +31,8 @@
         public IDbSet<MeasurementValue> MeasurementValues { get; set; }
 
         public IDbSet<TrainingScheduleRequest> TrainingScheduleRequests { get; set; }
+
+        public IDbSet<Rank> Ranks { get; set; }
     }
 
 }

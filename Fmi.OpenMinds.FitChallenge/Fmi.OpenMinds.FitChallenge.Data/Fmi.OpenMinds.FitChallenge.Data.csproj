@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201506012217309_AddedUserNavigPropInTrainingScheduleRequests.Designer.cs">
       <DependentUpon>201506012217309_AddedUserNavigPropInTrainingScheduleRequests.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506061741579_RankModel.cs" />
+    <Compile Include="Migrations\201506061741579_RankModel.Designer.cs">
+      <DependentUpon>201506061741579_RankModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506012217309_AddedUserNavigPropInTrainingScheduleRequests.resx">
       <DependentUpon>201506012217309_AddedUserNavigPropInTrainingScheduleRequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506061741579_RankModel.resx">
+      <DependentUpon>201506061741579_RankModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

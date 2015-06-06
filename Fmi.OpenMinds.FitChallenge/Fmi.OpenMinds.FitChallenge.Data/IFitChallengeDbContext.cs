@@ -5,6 +5,8 @@ namespace Fmi.OpenMinds.FitChallenge.Data
 {
     public interface IFitChallengeDbContext
     {
+        IDbSet<User> Users { get; set; }
+
         IDbSet<Exercise> Exercises { get; set; }
 
         IDbSet<WorkoutMuscleGroup> WorkoutMuscleGroups { get; set; }

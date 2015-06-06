@@ -24,7 +24,18 @@
                 <td>@user.PhoneNumber</td>
                 <td>@user.Skype</td>
                 <td>@user.Rank</td>
-                <td></td>
+                <td>
+                    @if (user.CanBeAssessed) 
+                    {
+                        <select class="form-control add-rank" data-id="@user.Id">
+                            <option>Select</option>
+                            @for (int i = 0; i < 5; i++) 
+                            { 
+                            <option value="@i">@i</option>
+                            }
+                        </select>
+                    }
+                </td>
             </tr>
         }
     </tbody>
@@ -35,3 +46,18 @@
         Back
     </button>
 </div>
+<script>
+$(function () {
+    $('.add-rank').on('change', function (e) {
+        var item = $(e.target);
+        $.post('@Url.Action("AddRank")', {
+            instructorId: item.data('id'),
+            value: item.val()
+        }).done(function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+        });
+    });
+});
+</script>

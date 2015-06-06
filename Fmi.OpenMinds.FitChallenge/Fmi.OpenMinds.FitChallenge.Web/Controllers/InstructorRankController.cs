@@ -51,11 +51,21 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
             foreach (var user in users)
             {
+                // Compute average rank
                 var instructorRanks = context.Ranks.Where(rank => rank.InstructorId == user.Id);
                 if(instructorRanks.Any()) 
                 {
                     user.Rank = instructorRanks.Average(item => item.Value);
                 }
+
+                // Can assess
+                string userId = this.User.Identity.GetUserId();
+
+                var request = this.context.TrainingScheduleRequests
+                    .FirstOrDefault(r => r.SportsmanId == userId &&
+                        r.InstructorId == user.Id);
+                user.CanBeAssessed = request != null &&
+                    request.State == TrainingScheduleRequestState.Approved;
             }
 
             return View(users);
@@ -87,6 +97,27 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             }
 
             return orderFunc;
+        }
+
+        public ActionResult AddRank(string instructorId, int value)
+        {
+            string userId = this.User.Identity.GetUserId();
+            var rank = context.Ranks.FirstOrDefault(item => item.InstructorId == instructorId &&
+                item.UserId == userId);
+            if (rank == null)
+            {
+                rank = new Rank() 
+                {
+                    InstructorId = instructorId,
+                    UserId = userId
+                };
+                this.context.Ranks.Add(rank);
+            }
+
+            rank.Value = value;
+            
+            this.context.SaveChanges();
+            return Json(new { success = true });
         }
     }
 }

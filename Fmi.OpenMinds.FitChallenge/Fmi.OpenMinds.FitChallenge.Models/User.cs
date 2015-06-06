@@ -45,6 +45,9 @@
         [NotMapped]
         public double Rank { get; set; }
 
+        [NotMapped]
+        public bool CanBeAssessed { get; set; }
+
         [StringLength(2000)]
         public string AdditionalInformation { get; set; }
 
@@ -57,5 +60,7 @@
             // Add custom user claims here
             return userIdentity;
         }
+
+
     }
 }

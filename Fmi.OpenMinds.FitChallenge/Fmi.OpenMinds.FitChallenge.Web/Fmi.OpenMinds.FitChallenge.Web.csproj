@@ -196,6 +196,7 @@
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructorRankController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeasurementController.cs" />
     <Compile Include="Controllers\WorkoutController.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Scripts\jquery.validator.methods.date.js" />
     <Content Include="Views\Account\RegisterInstructor.cshtml" />
+    <Content Include="Views\InstructorRank\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

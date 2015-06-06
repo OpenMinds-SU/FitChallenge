@@ -6,8 +6,8 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser
     {
         public User()
@@ -25,7 +25,7 @@
         public bool? IsMale { get; set; }
 
         [StringLength(100)]
-        public string PhoneNumber { get; set; }
+        public override string PhoneNumber { get; set; }
 
         [Range(0, 100)]
         public int? ExperienceYears { get; set; }
@@ -41,6 +41,9 @@
 
         [StringLength(200)]
         public string Skype { get; set; }
+
+        [NotMapped]
+        public double Rank { get; set; }
 
         [StringLength(2000)]
         public string AdditionalInformation { get; set; }

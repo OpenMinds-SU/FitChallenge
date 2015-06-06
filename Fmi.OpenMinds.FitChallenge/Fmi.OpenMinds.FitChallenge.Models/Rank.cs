@@ -5,11 +5,11 @@ namespace Fmi.OpenMinds.FitChallenge.Models
     {
         public int Id { get; set; }
 
-        public int InstructorId { get; set; }
+        public string InstructorId { get; set; }
 
         public virtual User Instructor { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
 

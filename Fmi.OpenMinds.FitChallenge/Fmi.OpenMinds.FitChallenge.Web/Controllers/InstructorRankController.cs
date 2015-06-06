@@ -48,6 +48,16 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
             var orderFunc = GetOrderFunction(orderByColumn);
             users = isAscending ? users.OrderBy(orderFunc) : users.OrderByDescending(orderFunc);
+
+            foreach (var user in users)
+            {
+                var instructorRanks = context.Ranks.Where(rank => rank.InstructorId == user.Id);
+                if(instructorRanks.Any()) 
+                {
+                    user.Rank = instructorRanks.Average(item => item.Value);
+                }
+            }
+
             return View(users);
         }
 

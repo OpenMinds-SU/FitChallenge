@@ -59,6 +59,9 @@
     <Compile Include="MeasurementValue.cs" />
     <Compile Include="MuscleGroupType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainingScheduleRequestState.cs" />
+    <Compile Include="SportExperienceYearsRange.cs" />
+    <Compile Include="TrainingScheduleRequest.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Workout.cs" />
     <Compile Include="WorkoutExercise.cs" />

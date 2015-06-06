@@ -29,6 +29,8 @@
         public IDbSet<Measurement> Measurements { get; set; }
 
         public IDbSet<MeasurementValue> MeasurementValues { get; set; }
+
+        public IDbSet<TrainingScheduleRequest> TrainingScheduleRequests { get; set; }
     }
 
 }

@@ -62,6 +62,14 @@
     <Compile Include="Migrations\201505241734046_AddMeasurementValues.Designer.cs">
       <DependentUpon>201505241734046_AddMeasurementValues.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505311741165_AddTrainingScheduleRequests.cs" />
+    <Compile Include="Migrations\201505311741165_AddTrainingScheduleRequests.Designer.cs">
+      <DependentUpon>201505311741165_AddTrainingScheduleRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506012217309_AddedUserNavigPropInTrainingScheduleRequests.cs" />
+    <Compile Include="Migrations\201506012217309_AddedUserNavigPropInTrainingScheduleRequests.Designer.cs">
+      <DependentUpon>201506012217309_AddedUserNavigPropInTrainingScheduleRequests.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +89,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505241734046_AddMeasurementValues.resx">
       <DependentUpon>201505241734046_AddMeasurementValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505311741165_AddTrainingScheduleRequests.resx">
+      <DependentUpon>201505311741165_AddTrainingScheduleRequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506012217309_AddedUserNavigPropInTrainingScheduleRequests.resx">
+      <DependentUpon>201506012217309_AddedUserNavigPropInTrainingScheduleRequests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

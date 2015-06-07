@@ -1,0 +1,42 @@
+﻿@model Fmi.OpenMinds.FitChallenge.Models.TrainingScheduleRequest
+@using Fmi.OpenMinds.FitChallenge.Models
+
+@if (Model.Id == 0)
+{
+    ViewBag.Title = "Create training schedule request";
+    <h2>Create training schedule request</h2>
+}
+else
+{
+    ViewBag.Title = "Create training schedule request";
+    <h2>Edit training schedule request</h2>
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sportsman.Height)
+        @Html.TextBoxFor(m => m.Sportsman.Height, new { @class = "form-control", placeholder = Model.Sportsman.Height })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sportsman.Weight)
+        @Html.TextBoxFor(m => m.Sportsman.Weight, new { @class = "form-control", placeholder = Model.Sportsman.Weight })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sportsman.Age)
+        @Html.TextBoxFor(m => m.Sportsman.Age, new { @class = "form-control", placeholder = Model.Sportsman.Age })
+    </div>
+    <div class="form-group">
+        @Html.Label("Sport experience (in years): ")
+        @Html.DropDownListFor(m => m.SportExperienceYearsRange, new SelectList(Enum.GetNames(typeof(SportExperienceYearsRange))), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Message)
+        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = "6", cols = "100", placeholder = "Enter a message to instructor here" })
+    </div>
+    @Html.HiddenFor(m => Model.InstructorId)
+    @Html.HiddenFor(m => Model.SportsmanId)
+    <input type="submit" value="Save" class="btn btn-default" />
+    @Html.ActionLink("Cancel", "Index", "TrainingScheduleRequest", new { }, new { @class = "btn btn-default" })
+}

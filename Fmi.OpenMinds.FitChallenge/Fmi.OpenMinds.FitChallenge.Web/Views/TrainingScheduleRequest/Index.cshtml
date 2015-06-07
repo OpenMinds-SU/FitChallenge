@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Fmi.OpenMinds.FitChallenge.Models.TrainingScheduleRequest>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Training Schedule Requests</h2>
+
+<button type="button" class="btn btn-default" name="Create" onclick="location.href='@Url.Action("Create", "TrainingScheduleRequest")'">
+    Create
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+</button>
+
+<p>&nbsp;</p>  @* space before the table*@
+
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Sportsman Requester</th>
+            <th>Gender</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Age</th>
+            <th>Sport Experience (in Years)</th>
+            <th>Contact info</th>
+            <th>Message to instructor</th>
+            <th>Instructor Requested</th>
+            <th>Request State</th>
+            <th width="200">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.Sportsman.FirstName @request.Sportsman.LastName</td>
+                <td>@(request.Sportsman.IsMale == true ? "Male" : "Female")</td>
+                <td>@request.Sportsman.Height</td>
+                <td>@request.Sportsman.Weight</td>
+                <td>@request.Sportsman.Age</td>
+                <td>@request.SportExperienceYearsRange</td>
+                <td>Email: @request.Sportsman.Email <br/>
+                    Skype: @request.Sportsman.Skype</td>
+                <td>@request.Message</td>
+                <td>@request.Instructor.FirstName @request.Instructor.LastName</td>
+                <td>@request.State</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <button type="button" class="btn btn-default" name="Back" onclick="location.href='@Url.Action("Index", "Home")'">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Back
+    </button>
+</div>

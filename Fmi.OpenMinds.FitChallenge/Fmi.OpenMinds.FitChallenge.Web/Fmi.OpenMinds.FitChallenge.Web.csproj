@@ -199,6 +199,7 @@
     <Compile Include="Controllers\InstructorRankController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeasurementController.cs" />
+    <Compile Include="Controllers\TrainingScheduleRequestController.cs" />
     <Compile Include="Controllers\WorkoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -254,7 +255,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -304,6 +307,7 @@
     <Content Include="Scripts\jquery.validator.methods.date.js" />
     <Content Include="Views\Account\RegisterInstructor.cshtml" />
     <Content Include="Views\InstructorRank\Index.cshtml" />
+    <Content Include="Views\TrainingScheduleRequest\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

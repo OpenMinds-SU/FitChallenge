@@ -22,12 +22,6 @@ namespace Fmi.OpenMinds.FitChallenge.Models
 
         public virtual User Instructor { get; set; }
 
-        public int Height { get; set; } // TODO - Should I use Sportsman  property instead of defining here another one?
-        
-        public int Weight { get; set; } // TODO - Should I use Sportsman  property instead of defining here another one?
-
-        public byte Age { get; set; } // TODO - Should I use Sportsman  property instead of defining here another one?
-
         public SportExperienceYearsRange SportExperienceYearsRange { get; set; }
 
         public string Message { get; set; }
@@ -35,5 +29,19 @@ namespace Fmi.OpenMinds.FitChallenge.Models
         public TrainingScheduleRequestState State { get; set; }
 
         public DateTime CreationDate { get; set; }
+
+        public override string ToString()
+        {
+            return "Id: \t" + Id + "\n" +
+                   "SportsmanId: \t\"" + SportsmanId + "\"\n" +
+                   "Sportsman.Height: \t" + ((null != Sportsman) ? Sportsman.Height : null) + "\n" +
+                   "Sportsman.Weight: \t" + ((null != Sportsman) ? Sportsman.Weight : null) + "\n" +
+                   "Sportsman.Age: \t" + ((null != Sportsman) ? Sportsman.Age : null) + "\n" +
+                   "InstructorId: \t\"" + InstructorId + "\"\n" +
+                   "SportExperienceYearsRange: \t" + SportExperienceYearsRange + "\n" +
+                   "Message: \t\"" + Message + "\"\n" +
+                   "State: \t" + State + "\n" +
+                   "CreationDate: \t" + CreationDate + "\n";
+        }
     }
 }

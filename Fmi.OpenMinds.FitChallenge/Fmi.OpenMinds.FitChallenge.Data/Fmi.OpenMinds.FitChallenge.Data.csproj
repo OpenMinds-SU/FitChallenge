@@ -78,6 +78,10 @@
     <Compile Include="Migrations\201506061752157_RankModelUpdated.Designer.cs">
       <DependentUpon>201506061752157_RankModelUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506072023013_RemovedUserDupInfoFromTrainingScheduleRequests.cs" />
+    <Compile Include="Migrations\201506072023013_RemovedUserDupInfoFromTrainingScheduleRequests.Designer.cs">
+      <DependentUpon>201506072023013_RemovedUserDupInfoFromTrainingScheduleRequests.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506061752157_RankModelUpdated.resx">
       <DependentUpon>201506061752157_RankModelUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506072023013_RemovedUserDupInfoFromTrainingScheduleRequests.resx">
+      <DependentUpon>201506072023013_RemovedUserDupInfoFromTrainingScheduleRequests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

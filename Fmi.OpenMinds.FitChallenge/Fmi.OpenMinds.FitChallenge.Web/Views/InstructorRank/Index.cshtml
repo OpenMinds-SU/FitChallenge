@@ -13,6 +13,7 @@
             <th>@Html.ActionLink("Skype", "Index", new { isAscending = !ViewBag.IsAscending, orderByColumn = "Skype" })</th>
             <th>@Html.ActionLink("Rank", "Index", new { isAscending = !ViewBag.IsAscending, orderByColumn = "Rank" })</th>
             <th>Assess</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,11 @@
                             }
                         </select>
                     }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" name="RequestTrainingSchedule" onclick="window.open('@Url.Action("Create", "TrainingScheduleRequest", new { reqInstructorId = user.Id })')">
+                        Request Training Schedule
+                    </button>
                 </td>
             </tr>
         }

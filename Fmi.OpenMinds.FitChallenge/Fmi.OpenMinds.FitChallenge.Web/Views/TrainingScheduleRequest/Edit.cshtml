@@ -37,6 +37,6 @@ else
     </div>
     @Html.HiddenFor(m => Model.InstructorId)
     @Html.HiddenFor(m => Model.SportsmanId)
-    <input type="submit" value="Save" class="btn btn-default" />
-    @Html.ActionLink("Cancel", "Index", "TrainingScheduleRequest", new { }, new { @class = "btn btn-default" })
+    <input type="submit" value="Send" class="btn btn-primary" />
+    <input type="button" value="Cancel" class="btn btn-default" onclick="window.close()" />
 }

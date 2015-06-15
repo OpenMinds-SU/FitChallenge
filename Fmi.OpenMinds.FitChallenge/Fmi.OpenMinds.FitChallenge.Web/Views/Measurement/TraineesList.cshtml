@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Fmi.OpenMinds.FitChallenge.Models.User>
+@{
+    ViewBag.Title = "TraineesList";
+}
+
+<h2>Trainees list</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>User name</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@Html.ActionLink("Measurements", "Index", "Measurement", new { userId = user.Id }, new { })</td>
+        </tr>
+    }
+</table>

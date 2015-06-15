@@ -63,9 +63,9 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
                 var request = this.context.TrainingScheduleRequests
                     .FirstOrDefault(r => r.SportsmanId == userId &&
-                        r.InstructorId == user.Id);
-                user.CanBeAssessed = request != null &&
-                    request.State == TrainingScheduleRequestState.Approved;
+                        r.InstructorId == user.Id &&
+                        r.State == TrainingScheduleRequestState.Approved);
+                user.CanBeAssessed = request != null;
             }
 
             return View(users);

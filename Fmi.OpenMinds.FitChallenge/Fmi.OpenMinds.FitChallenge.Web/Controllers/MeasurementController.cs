@@ -22,11 +22,24 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
         public ActionResult Index(string userId = null)
         {
-            // TODO: check if currentUser can view measurements of user with specified userId;
-            
             if (userId == null)
             {
                 userId = User.Identity.GetUserId();
+            }
+            else
+            {
+                // Check if current user is trainer to selected user.
+                string currentUserId = User.Identity.GetUserId();
+
+                bool hasApprovedRequest = this.context.TrainingScheduleRequests
+                    .Any(r => r.SportsmanId == userId &&
+                        r.InstructorId == currentUserId &&
+                        r.State == TrainingScheduleRequestState.Approved);
+
+                if (!hasApprovedRequest)
+                {
+                    return this.View("Error");
+                }
             }
 
             var userMeasurements = this.context.Measurements
@@ -135,6 +148,18 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult TraineesList()
+        {
+            string userId = User.Identity.GetUserId();
+            var traineesIds = this.context.TrainingScheduleRequests
+                .Where(r => r.InstructorId == userId &&
+                    r.State == TrainingScheduleRequestState.Approved)
+                .Select(r => r.SportsmanId);
+            var trainees = this.context.Users.Where(u => traineesIds.Contains(u.Id));
+
+            return View(trainees);
         }
     }
 }

@@ -308,6 +308,8 @@
     <Content Include="Views\Account\RegisterInstructor.cshtml" />
     <Content Include="Views\InstructorRank\Index.cshtml" />
     <Content Include="Views\TrainingScheduleRequest\Edit.cshtml" />
+    <Content Include="Views\Measurement\Error.cshtml" />
+    <Content Include="Views\Measurement\TraineesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -339,7 +341,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50552</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -1,6 +1,7 @@
 ﻿using Fmi.OpenMinds.FitChallenge.Data;
 using Fmi.OpenMinds.FitChallenge.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -14,10 +15,29 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
     public class TrainingScheduleRequestController : Controller
     {
         private IFitChallengeDbContext context;
+        private ApplicationUserManager userManager;
 
         public TrainingScheduleRequestController(IFitChallengeDbContext context) 
         {
             this.context = context;
+        }
+
+        public TrainingScheduleRequestController(IFitChallengeDbContext context, ApplicationUserManager userManager) 
+        {
+            this.context = context;
+            this.userManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                userManager = value;
+            }
         }
 
         // Filtering The TrainingScheduleRequests for The Current User
@@ -41,6 +61,18 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
         [HttpGet]
         public ActionResult Create(string reqInstructorId)
         {
+            // Verify if the provided instructor Id matches with an Id of a User which has an Istructor role
+            var instructor = context.Users.Find(reqInstructorId);
+            if ((null == instructor) || ((null != instructor) && (false == UserManager.IsInRole(instructor.Id, "Instructor"))))
+            {
+                ViewBag.Error = "Invalid instructor Id for the Create request.";
+            }
+
+            if (null != ViewBag.Error)
+            {
+                return View("Index", GetCurrentUserTrainingScheduleRequests());
+            }
+
             var currentUserId = User.Identity.GetUserId();
             var trainingScheduleRequestModel = new TrainingScheduleRequest {
                                                         SportsmanId = currentUserId,
@@ -53,6 +85,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
         // POST : TrainingScheduleRequest/Create
         [HttpPost]
+        [ValidateInput(false)] // anotation to get rid of the annoying "A potentially dangerous Request.Form value was detected from the client" error. HTML Encoding is performed by default by the Razor.
         public ActionResult Create(TrainingScheduleRequest req)
         {
             if (req.InstructorId == null)

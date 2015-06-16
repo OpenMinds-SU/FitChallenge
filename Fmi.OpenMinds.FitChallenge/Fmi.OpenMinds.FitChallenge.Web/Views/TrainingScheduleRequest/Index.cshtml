@@ -10,6 +10,16 @@
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
 
+@if (null != ViewBag.Error)
+{
+    <p>&nbsp;</p>  @* space before the error message(s) *@
+    <div class="validation-summary-errors text-danger">
+        <ul>
+            <li>@ViewBag.Error</li>
+        </ul>
+    </div>
+}
+
 <p>&nbsp;</p>  @* space before the table*@
 
 <table class="table table-striped table-hover table-bordered">

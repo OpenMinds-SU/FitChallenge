@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Fmi.OpenMinds.FitChallenge.Models.Measurement>
+@using Fmi.OpenMinds.FitChallenge.Web.Helpers
 @using Fmi.OpenMinds.FitChallenge.Models
 @{
     ViewBag.Title = "Index";
@@ -19,7 +20,7 @@
             <th>Date</th>
             @foreach (var measurementType in Enum.GetValues(typeof(MeasurementType)))
             {
-                <th>@measurementType</th>
+                <th>@(EnumHelper<MeasurementType>.GetDisplayValue((MeasurementType)measurementType))</th>
             }
             <th>Actions</th>
         </tr>

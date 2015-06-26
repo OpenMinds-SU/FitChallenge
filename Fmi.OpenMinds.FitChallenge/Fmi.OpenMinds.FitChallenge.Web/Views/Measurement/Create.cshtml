@@ -1,6 +1,6 @@
 ﻿@model Fmi.OpenMinds.FitChallenge.Models.Measurement
 @using Fmi.OpenMinds.FitChallenge.Models
-
+@using Fmi.OpenMinds.FitChallenge.Web.Helpers
 <h2>Create measurement</h2>
 
 @using (Html.BeginForm())
@@ -19,7 +19,7 @@
             .FirstOrDefault(mv => mv.MeasurementType == (MeasurementType)measurementType);
         double? value = measurementValue != null ? measurementValue.Value : (double?)null;
         <div class="form-group">
-            @Html.Label(@measurementType.ToString())
+            @Html.Label(EnumHelper<MeasurementType>.GetDisplayValue((MeasurementType)measurementType))
             @Html.TextBox("MeasurementValues[" + @index + "].Value", value, new { @class = "form-control", placeholder = "Enter value", @maxlength = "3"})
         </div>
         index++;

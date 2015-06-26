@@ -22,19 +22,23 @@
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Last name")]
         public string LastName { get; set; }
 
         [Required]
         [Range(0,100)]
+        [Display(Name = "Experience years")]
         public int ExperienceYears { get; set; }
 
         [Required]
         [StringLength(100)]
         [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
         [StringLength(200)]
@@ -42,6 +46,7 @@
 
         [StringLength(2000)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Additional information")]
         public string AdditionalInformation { get; set; }
     }
 }

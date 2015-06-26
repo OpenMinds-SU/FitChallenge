@@ -219,9 +219,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\calendar.png" />
+    <Content Include="Content\Images\exercise.png" />
     <Content Include="Content\Images\food.png" />
+    <Content Include="Content\Images\instructors list.png" />
+    <Content Include="Content\Images\measurment.png" />
+    <Content Include="Content\Images\requests.png" />
     <Content Include="Content\Images\suplements.png" />
     <Content Include="Content\Images\training.png" />
+    <Content Include="Content\Images\workout.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

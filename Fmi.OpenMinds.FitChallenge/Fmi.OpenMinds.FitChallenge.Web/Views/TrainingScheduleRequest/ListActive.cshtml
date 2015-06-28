@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Fmi.OpenMinds.FitChallenge.Models.TrainingScheduleRequest>
+@using Fmi.OpenMinds.FitChallenge.Models
+@{
+    ViewBag.Title = "Active Training Schedules";
+}
+
+<h2>Active Training Schedules</h2>
+
+@if (null != ViewBag.Error)
+{
+    <p>&nbsp;</p>  @* space before the error message(s) *@
+    <div class="validation-summary-errors text-danger">
+        <ul>
+            <li>@ViewBag.Error</li>
+        </ul>
+    </div>
+}
+
+<p>&nbsp;</p>  @* space before the table*@
+
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Sportsman Name</th>
+            <th>Calendar</th>
+            <th>Measurements</th>
+            <th>Contact info</th>
+            <th width="200">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.Sportsman.FirstName @request.Sportsman.LastName</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Index", "Calendar", new { userId = request.SportsmanId })">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Index", "Measurement", new { userId = request.SportsmanId })">
+                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td>
+                    <div>
+                        <script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
+                        <div id="SkypeButton_Call_@(request.Sportsman.Skype)_@(request.Id)" style="float:left; width:45%;">
+                            <script type="text/javascript">
+                                Skype.ui({
+                                    "name": "dropdown",
+                                    "element": "SkypeButton_Call_@(request.Sportsman.Skype)_@(request.Id)",
+                                    "participants": ["@(request.Sportsman.Skype)"],
+                                    "imageSize": 32
+                                });
+                            </script>
+                        </div>
+                        <div style="float:right; width:45%;">
+                            <a class="btn btn-primary" href="mailto:@(request.Sportsman.Email)">
+                                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-default" href="@Url.Action("ChangeState", "TrainingScheduleRequest", new { reqId = request.Id, nNewState = TrainingScheduleRequestState.Completed })">
+                            Stop Training Session
+                            <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <button type="button" class="btn btn-default" name="Back" onclick="location.href='@Url.Action("Index", "Home")'">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Back
+    </button>
+</div>

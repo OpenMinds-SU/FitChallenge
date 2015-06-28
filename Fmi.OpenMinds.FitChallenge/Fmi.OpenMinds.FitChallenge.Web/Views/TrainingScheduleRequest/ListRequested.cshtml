@@ -2,15 +2,10 @@
 @using Fmi.OpenMinds.FitChallenge.Models
 @using Fmi.OpenMinds.FitChallenge.Web.Helpers
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Requested Training Schedules";
 }
 
-<h2>Training Schedule Requests</h2>
-
-<button type="button" class="btn btn-default" name="Create" onclick="location.href='@Url.Action("Create", "TrainingScheduleRequest")'">
-    Create
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button>
+<h2>Requested Training Schedules</h2>
 
 @if (null != ViewBag.Error)
 {
@@ -27,16 +22,13 @@
 <table class="table table-striped table-hover table-bordered">
     <thead>
         <tr>
-            <th>Sportsman Requester</th>
+            <th>Sportsman Name</th>
             <th>Gender</th>
             <th>Height</th>
             <th>Weight</th>
             <th>Age</th>
             <th>Sport Experience (in Years)</th>
-            <th>Contact info</th>
-            <th>Message to instructor</th>
-            <th>Instructor Requested</th>
-            <th>Request State</th>
+            <th>Message</th>
             <th width="200">Actions</th>
         </tr>
     </thead>
@@ -50,11 +42,19 @@
                 <td>@request.Sportsman.Weight</td>
                 <td>@request.Sportsman.Age</td>
                 <td>@(EnumHelper<SportExperienceYearsRange>.GetDisplayValue(request.SportExperienceYearsRange))</td>
-                <td>Email: @request.Sportsman.Email <br/>
-                    Skype: @request.Sportsman.Skype</td>
                 <td>@request.Message</td>
-                <td>@request.Instructor.FirstName @request.Instructor.LastName</td>
-                <td>@request.State</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary" href="@Url.Action("ChangeState", "TrainingScheduleRequest", new { reqId = request.Id, nNewState = TrainingScheduleRequestState.Approved })">
+                            Approve
+                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default" href="@Url.Action("ChangeState", "TrainingScheduleRequest", new { reqId = request.Id, nNewState = TrainingScheduleRequestState.Rejected })">
+                            Reject
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>

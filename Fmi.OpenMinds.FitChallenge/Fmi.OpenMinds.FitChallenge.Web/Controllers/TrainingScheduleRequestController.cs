@@ -115,7 +115,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 
             if (null != ViewBag.Error)
             {
-                return View(GetCurrentUserTrainingScheduleRequests((int)~TrainingScheduleRequestState.Unknown)); // bit mask that match all states
+                return View("Index", GetCurrentUserTrainingScheduleRequests((int)~TrainingScheduleRequestState.Unknown)); // bit mask that match all states
             }
 
             var currentUserId = User.Identity.GetUserId();

@@ -9,7 +9,7 @@
     using Fmi.OpenMinds.FitChallenge.Models;
 
     [Authorize]
-    public class CalendarController : Controller
+    public class CalendarController : BaseController
     {
         private readonly IFitChallengeDbContext context;
 

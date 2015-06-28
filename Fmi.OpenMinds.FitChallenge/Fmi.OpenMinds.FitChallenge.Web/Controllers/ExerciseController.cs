@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
     [Authorize]
-    public class ExerciseController : Controller
+    public class ExerciseController : BaseController
     {
         private IFitChallengeDbContext context;
 

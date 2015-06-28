@@ -11,7 +11,7 @@ using Fmi.OpenMinds.FitChallenge.Models;
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
     [Authorize]
-    public class MeasurementController : Controller
+    public class MeasurementController : BaseController
     {
         private IFitChallengeDbContext context;
 

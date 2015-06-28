@@ -25,6 +25,21 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
                     <li>@Html.ActionLink("Workouts", "Index", "Workout")</li>
+                    @if (ViewBag.InstructorSkypeName != null)
+                    {
+
+                        <script type="text/javascript" src="http://www.skypeassets.com/i/scom/js/skype-uri.js"></script>
+
+    <li><div id="SkypeButton_Call_trainer">
+    <script type="text/javascript">
+        Skype.ui({
+            "name": "dropdown",
+            "element": "SkypeButton_Call_trainer",
+            "participants": ["@ViewBag.InstructorSkypeName"],
+        });
+    </script>
+</div></li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -38,6 +53,9 @@
         </footer>
     </div>
     
+
+
+
     @Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
     <script src="~/Scripts/jquery.validator.methods.date.js"></script>

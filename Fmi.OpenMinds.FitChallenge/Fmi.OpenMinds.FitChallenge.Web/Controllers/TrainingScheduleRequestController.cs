@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
     [Authorize]
-    public class TrainingScheduleRequestController : Controller
+    public class TrainingScheduleRequestController : BaseController
     {
         private IFitChallengeDbContext context;
         private ApplicationUserManager userManager;

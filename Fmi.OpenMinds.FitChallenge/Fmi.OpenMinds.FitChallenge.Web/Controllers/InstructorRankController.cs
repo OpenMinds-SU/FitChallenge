@@ -10,7 +10,7 @@ using Fmi.OpenMinds.FitChallenge.Models;
 namespace Fmi.OpenMinds.FitChallenge.Web.Controllers
 {
     [Authorize]
-    public class InstructorRankController : Controller
+    public class InstructorRankController : BaseController
     {
         private readonly IFitChallengeDbContext context;
         private ApplicationUserManager userManager;

@@ -318,6 +318,9 @@
     <Content Include="Views\TrainingScheduleRequest\Edit.cshtml" />
     <Content Include="Views\Measurement\Error.cshtml" />
     <Content Include="Views\Measurement\TraineesList.cshtml" />
+    <Content Include="Views\TrainingScheduleRequest\Index.cshtml" />
+    <Content Include="Views\TrainingScheduleRequest\ListActive.cshtml" />
+    <Content Include="Views\TrainingScheduleRequest\ListRequested.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

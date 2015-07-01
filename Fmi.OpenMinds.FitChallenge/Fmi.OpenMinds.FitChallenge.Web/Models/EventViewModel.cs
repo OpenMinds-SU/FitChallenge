@@ -24,5 +24,7 @@
         public int WorkoutId { get; set; }
 
         public string WorkoutName { get; set; }
+
+        public string UserId { get; set; }
     }
 }

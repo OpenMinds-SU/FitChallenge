@@ -22,10 +22,17 @@
         var startDate = start.year() + '-' + (start.month() + 1) + '-' + start.date();
         var end = view.intervalEnd;
         var endDate = end.year() + '-' + (end.month() + 1) + '-' + end.date();
+        var userId = null;
+
+        var $userIdHidden = $("#UserId");
+        if ($userIdHidden) {
+            userId = $userIdHidden.val();
+        }
 
         $.post('/Calendar/Index', {
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            userId: userId
         })
         .done(initEvents);
     }
@@ -84,8 +91,14 @@
         if (eventsForTheDay.length > 0) {
             return;
         }
-       
-        $.get('/Calendar/Create')
+
+        var url = '/Calendar/Create';
+        var $userIdHidden = $("#UserId");
+        if ($userIdHidden.length > 0) {
+            url += '?userId=' + $userIdHidden.val();
+        }
+
+        $.get(url)
         .done(function (view) {
             saveModal.find('.modal-body').html(view);
             saveModal.find('#Date').val(dateText);
@@ -115,7 +128,13 @@
         var date = event.start;
         var dateText = date.year() + '-' + (date.month() + 1) + '-' + date.date();
 
-        $.get('/Calendar/Edit/' + event.id)
+        var url = '/Calendar/Edit/' + event.id;
+        var $userIdHidden = $("#UserId");
+        if ($userIdHidden.length > 0) {
+            url += '?userId=' + $userIdHidden.val();
+        }
+
+        $.get(url)
         .done(function (view) {
             saveModal.find('.modal-body').html(view);
             saveModal.find('#Date').val(dateText);

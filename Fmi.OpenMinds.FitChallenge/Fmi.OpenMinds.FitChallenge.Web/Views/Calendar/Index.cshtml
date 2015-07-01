@@ -1,4 +1,10 @@
 ﻿<br />
+@if (ViewBag.UserId != null)
+{
+    string userId = (string)ViewBag.UserId;
+    @Html.Hidden("UserId", userId) 
+}
+
 <div id='calendar'></div>
 
 <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

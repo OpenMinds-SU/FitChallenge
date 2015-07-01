@@ -8,6 +8,7 @@
     {
         @Html.HiddenFor(m => m.Date)
     }
+    @Html.HiddenFor(m => m.UserId)
     <div class="form-group">
         <label>Workout</label>
         @Html.DropDownListFor(m => m.WorkoutId,

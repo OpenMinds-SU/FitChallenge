@@ -19,13 +19,18 @@
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string userId = null)
         {
+            if (!string.IsNullOrEmpty(userId))
+            {
+                ViewBag.UserId = userId;
+            }
+
             return this.View();
         }
 
         [HttpPost]
-        public ActionResult Index(DateTime? startDate = null, DateTime? endDate = null)
+        public ActionResult Index(DateTime? startDate = null, DateTime? endDate = null, string userId = null)
         {
             if (startDate == null)
             {
@@ -40,9 +45,14 @@
 
             try
             {
-                var userId = this.User.Identity.GetUserId();
+                var currentUserId = this.User.Identity.GetUserId();
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    currentUserId = userId;
+                }
+
                 var events = this.context.Events
-                    .Where(ev => ev.UserId == userId &&
+                    .Where(ev => ev.UserId == currentUserId &&
                         ev.Date >= startDate && ev.Date <= endDate)
                     .ToArray()
                     .Select(ev => mapEvent(ev));
@@ -55,20 +65,30 @@
             }
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string userId = null)
         {
             InitWorkoutSelectList();
 
             var model = new EventViewModel();
+            if (string.IsNullOrEmpty(userId))
+            {
+                model.UserId = userId;
+            }
+
             return this.PartialView("Edit", model);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string userId =null)
         {
             InitWorkoutSelectList();
 
             var currentEvent = this.context.Events.Find(id);
             var eventViewModel = mapEvent(currentEvent);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                eventViewModel.UserId = userId;
+            }
+
             return this.PartialView(eventViewModel);
         }
 
@@ -94,11 +114,17 @@
             try
             {
                 string message = string.Empty;
+                var currentUserId = this.User.Identity.GetUserId();
 
                 if (eventModel.Id > 0)
                 {
                     var currentEvent = this.context.Events.Find(eventModel.Id);
-                    if (currentEvent.UserId == User.Identity.GetUserId())
+                    if (!string.IsNullOrEmpty(eventModel.UserId))
+                    {
+                        currentUserId = eventModel.UserId;
+                    }
+
+                    if (currentEvent.UserId == currentUserId)
                     {
                         currentEvent.Food = eventModel.Food;
                         currentEvent.Supplements = eventModel.Supplements;
@@ -125,9 +151,21 @@
                         Supplements = eventModel.Supplements,
                         IsTrainingDone = eventModel.IsTrainingDone,
                         SupplementsAreDrunken = eventModel.SupplementsAreDrunken,
-                        UserId = this.User.Identity.GetUserId(),
                         WorkoutId = eventModel.WorkoutId
                     };
+
+                    eventDataModel.UserId = currentUserId;
+                    if (!string.IsNullOrEmpty(eventModel.UserId))
+                    {
+                        var isCurrentUserTrainer = context.TrainingScheduleRequests.Any(request => request.InstructorId == currentUserId
+                            && request.SportsmanId == eventModel.UserId
+                            && request.State == TrainingScheduleRequestState.Approved);
+
+                        if (isCurrentUserTrainer)
+                        {
+                            eventDataModel.UserId = eventModel.UserId;
+                        }
+                    }
 
                     this.context.Events.Add(eventDataModel);
                     this.context.SaveChanges();

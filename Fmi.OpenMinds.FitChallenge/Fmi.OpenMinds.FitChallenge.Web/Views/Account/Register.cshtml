@@ -44,7 +44,14 @@
     <div class="form-group">
         @Html.LabelFor(m => m.IsMale, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.CheckBoxFor(m => m.IsMale, new { @class = "form-control" })
+            <div class="col-md-2">
+                @Html.RadioButtonFor(x => x.IsMale, true)
+                <label class="control-label">Male</label>
+            </div>
+            <div class="col-md-2">
+                @Html.RadioButtonFor(x => x.IsMale, false)
+                <label class="control-label">Female</label>
+            </div>
         </div>
     </div>
     <div class="form-group">

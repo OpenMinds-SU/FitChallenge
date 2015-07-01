@@ -31,7 +31,7 @@
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Is Male")]
+        [Display(Name = "Gender")]
         public bool IsMale { get; set; }
 
         [StringLength(100)]

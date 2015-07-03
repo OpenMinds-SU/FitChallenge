@@ -5,7 +5,6 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
-
     <p>Edit of the workout</p>
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
@@ -13,7 +12,7 @@
     </div>
     <div class="form-group">
         @Html.Label("Muscle groups:")
-        @Html.DropDownList("MuscleGroups", new SelectList(Enum.GetNames(typeof(MuscleGroupType)).Where(item => item != "Unknown")), new { @class = "form-control", multiple = "multiple" })
+        @Html.ListBox("MuscleGroups", new MultiSelectList(Enum.GetNames(typeof(MuscleGroupType)).Where(item => item != "Unknown"), Model.MuscleGroups.Select(item => item.ToString()).ToList()), new { @class = "form-control" })
     </div>
 
     <button type="button" class="btn btn-default btn-sm" id="add-exercise-btn">
@@ -26,26 +25,29 @@
             <th>Sets</th>
             <th>Repeats</th>
         </tr>
-        @foreach (var workoutExercise in Model.WorkoutExercises)
-        {
-            <tr>
-                <td>
-                    @workoutExercise.Exercise.Name
-                    @*@Html.DropDownListFor(model => model.WorkoutExercises, (SelectList)ViewBag.Exercises, new { @class = "form-control" })*@
-                </td>
-                <td>
-                    @Html.TextBox("WorkoutExercises[index].Sets", workoutExercise.Repeats, new { @class = "form-control" })
-                </td>
-                <td>
-                    @Html.TextBox("WorkoutExercises[index].Repeats", workoutExercise.Sets, new { @class = "form-control" })
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default btn-group-sm" id="delete-exercise-btn">
-                        Delete
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </button>
-                </td>
-            </tr>
+        @if (Model.WorkoutExercises != null) 
+        { 
+            foreach (var workoutExercise in Model.WorkoutExercises)
+            {
+                int index = Model.WorkoutExercises.IndexOf(workoutExercise);
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(model => model.WorkoutExercises[index].ExerciseId, (SelectList)ViewBag.Exercises, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.WorkoutExercises[index].Sets, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.WorkoutExercises[index].Repeats, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-group-sm" id="delete-exercise-btn">
+                            Delete
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
         }
     </table>
     <input type="submit" value="Save" class="btn btn-default" />
@@ -70,13 +72,11 @@
         </td>
     </tr>
 </table>
-
-
 <script>
     $(function () {
-        
         $('#template-row').hide();
-        var index = 0;
+
+        var index = $('table.table tr').length - 1;
         $('#add-exercise-btn').on('click', function () {
             var html = $('#template-row').html();
             html = html.replace(/index/g, index);
@@ -84,12 +84,8 @@
             index++;
         });
 
-    });
-
-    jQuery(function ($) {
         $("#tableExercises").on("click", "#delete-exercise-btn", function () {
             $(this).closest('tr').remove();
         });
     });
-
 </script>

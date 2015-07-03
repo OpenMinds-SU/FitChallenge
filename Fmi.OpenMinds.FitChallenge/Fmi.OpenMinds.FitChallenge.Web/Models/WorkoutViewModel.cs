@@ -1,9 +1,7 @@
 ﻿using Fmi.OpenMinds.FitChallenge.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace Fmi.OpenMinds.FitChallenge.Web.Models
 {
@@ -17,7 +15,7 @@ namespace Fmi.OpenMinds.FitChallenge.Web.Models
 
         public string UserId { get; set; }
 
-        public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; }
+        public virtual IList<WorkoutExercise> WorkoutExercises { get; set; }
 
         public virtual ICollection<MuscleGroupType> MuscleGroups { get; set; }
 

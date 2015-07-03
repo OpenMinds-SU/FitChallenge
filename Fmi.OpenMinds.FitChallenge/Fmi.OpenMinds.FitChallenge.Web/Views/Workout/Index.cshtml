@@ -35,11 +35,12 @@
                     </ul>
                 </td>
                 <td>
-                    @foreach (var workoutExercise in @workout.WorkoutExercises)
-                    {
-                        @workoutExercise.Exercise.Name
-                    }
-                    @workout.WorkoutExercises.Count
+                    <ul>
+                        @foreach (var workoutExercise in @workout.WorkoutExercises)
+                        {
+                            <li>@workoutExercise.Exercise.Name</li>
+                        }
+                    </ul>
                 </td>
                 <td>
                     @if (workout.UserId != null)
